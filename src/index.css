@@ -1,13 +1,117 @@
-body {
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
+* {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+html {
+  height: 100%;
+}
+
+body {
+  background: #FFFFFF;
+  height: 100%;
+  font-family: 'Open Sans', sans-serif;
+  font-style: normal;
+}
+
+/* Global CSS */
+.text {
+  font-weight: bold;
+  font-size: 34px;
+  color: #222222;
+}
+
+.text-muted {
+  font-weight: normal;
+  font-size: 12px;
+  color: #9B9B9B;
+}
+
+/* Navigation Bar */
+.navbar {
+  height: 100px;
+  background: #FFFFFF;
+  box-shadow: 0px 6px 40px rgba(173, 173, 173, 0.25);
+}
+
+.navbar-brand {
+  margin-right: 60px;
+}
+
+.input-group {
+  width: 500px;
+}
+
+.search-form {
+  border: 1px solid #8E8E93;
+  border-radius: 23px;
+}
+
+.search-btn {
+  border: 1px solid #8E8E93;
+  border-radius: 0px 23px 23px 0px;
+}
+
+.filter-btn {
+  background: #FFFFFF;
+  border: 1px solid #8E8E93;
+  border-radius: 12px;
+}
+
+.filter {
+  margin-left: 10px;
+}
+
+.cart {
+  margin-left: 100px;
+  margin-right: 20px;
+}
+
+.btn-full {
+  font-weight: 500;
+  font-size: 14px;
+  color: #FFFFFF;
+  background: #DB3022;
+  border-radius: 25px;
+  width: 100px;
+}
+
+.btn-shadow {
+  font-weight: 500;
+  font-size: 14px;
+  border: 1px solid #9B9B9B;
+  box-sizing: border-box;
+  border-radius: 24px;
+  color: gray;
+  width: 100px;
+}
+
+/* Card */
+.card {
+  margin-top: 25px;
+  width: 210px;
+  height: 280px;
+  background: #FFFFFF;
+  box-shadow: 0px 0px 14px rgba(173, 173, 173, 0.25);
+  border-radius: 8px;
+}
+
+.card-title {
+  font-weight: bold;
+  font-size: 16px;
+  color: #000000;
+}
+
+.card-body p {
+  font-size: 12px;
+  margin-bottom: 0px;
+}
+
+.price {
+  font-weight: bold;
+  font-size: 16px;
+  color: #DB3022;
 }
