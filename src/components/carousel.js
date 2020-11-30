@@ -15,6 +15,15 @@ export default class carousel extends Component {
             centerPadding: '60px',
             responsive: [
                 {
+                    breakpoint: 992,
+                    settings: {
+                      arrows: true,
+                      centerMode: true,
+                      slidesToShow: 1,
+                      centerPadding: '100px',
+                    }
+                },
+                {
                     breakpoint: 768,
                     settings: {
                       arrows: true,
@@ -37,17 +46,19 @@ export default class carousel extends Component {
         return (
             <Container>
                 <Slider { ...settings }>
-                <div className='carousel'>
-                    <Image src={ card2 } />
-                </div>
-                <div className='carousel'>
+                <div className='img-carousel'>
                     <Image src={ card3 } />
                 </div>
-                <div className='carousel'>
+                <div class="carousel">
                     <Image src={ card2 } />
-                </div>
-                <div className='carousel'>
+					<h1>Trends in 2020</h1>
+				</div>
+                <div class="carousel">
                     <Image src={ card3 } />
+					<h1>Black edition</h1>
+				</div>
+                <div className='img-carousel'>
+                    <Image src={ card2 } />
                 </div>
                 </Slider>
             </Container>

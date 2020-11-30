@@ -45,7 +45,7 @@ export default class category extends Component {
 
         return (
             <>
-                <Container>
+                <Container style={{ marginTop: '50px' }}>
                     <h2 className="text">Category</h2>
                     <p className="text-muted">What are you currently looking for</p>
                 </Container>

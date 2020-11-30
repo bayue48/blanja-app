@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Container } from 'react-bootstrap'
 import Navbar from '../components/navbar';
 import Carousel from '../components/carousel';
 import Category from '../components/category';

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { gez, star } from '../../src/assets'
 import axios from 'axios'
 
-const getUrl = 'http://localhost:8000/api/v2/products';
+const getUrl = 'http://localhost:8000/api/v2/products?sortBy=updated_at&orderBy=desc';
 
 export default class New extends Component {
     state = {
@@ -33,7 +33,7 @@ export default class New extends Component {
 
         return (
             <>
-                <Container>
+                <Container style={{ marginTop: '50px' }}>
                     <h2 className="text">New</h2>
 			        <p className="text-muted">You’ve never seen it before!</p>
                 </Container>
@@ -42,8 +42,8 @@ export default class New extends Component {
                         {products.data && products.data.map(
                             ({product_name, product_price, product_brand, id} ) => {
                                 return(
-                                    <Card className="col-lg-2 col-md-3 col-6 mr-3 ml-3 shadow bg-white rounded" id="cards" key={id}>
-                                        <img src={ gez } className="card-img-top img-fluid" alt="..."/>
+                                    <Card className="col-lg-2 col-md-3 col-sm-4 col-4 mr-3 ml-3 shadow bg-white rounded" id="cards" key={id}>
+                                        <img src={ gez } className="card-img-top" alt="..."/>
                                     
                                         <div className="card-body">
                                             <Link to={{

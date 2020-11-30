@@ -49,9 +49,5 @@
     "url": "git+https://github.com/bayue48/blanja-app.git"
   },
   "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/bayue48/blanja-app/issues"
-  },
-  "homepage": "https://github.com/bayue48/blanja-app#readme"
+  "license": "ISC"
 }
