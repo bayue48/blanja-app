@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Container, Image } from 'react-bootstrap'
 import Slider from 'react-slick';
+import { Link } from 'react-router-dom'
 import { accs, bagpack, cap, dress, glass, handbag, heels, jacket, pants, 
     shirt, shoes, shorts, socks, tie, watchs } from '../../src/assets'
 
@@ -9,6 +10,7 @@ export default class category extends Component {
         const settings = {
             centerMode: true,
             infinite: true,
+            draggable: true,
             slidesToShow: 5,
             slidesToScroll: 1,
             centerPadding: '1px',
@@ -52,7 +54,12 @@ export default class category extends Component {
                 <Container>
                     <Slider { ...settings } >
                     <div>
+                    <Link to={{
+                        pathname: `/category/1`,
+						state: this.state
+                    }}>
                         <Image src={ shirt } />
+                    </Link>
                     </div>
                     <div>
                         <Image src={ shorts } />

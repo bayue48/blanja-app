@@ -2,6 +2,7 @@ import gez from './gez-xavier.png'
 
 // logo
 import logo from './icons/LogoBig.png'
+import logos from '/icons/Logo.png'
 
 // icon
 import cart from './icons/cart.png' 
@@ -37,4 +38,4 @@ import accs from './categories/Group 1245.png'
 
 export { logo, cart, star, filter, search, card1, card2, card3, card4, 
     shirt, shorts, jacket, pants, shoes, heels, watchs, handbag, 
-    bagpack, socks, glass, cap, tie, dress, suit, accs, gez }
+    bagpack, socks, glass, cap, tie, dress, suit, accs, gez, logos }

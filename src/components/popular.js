@@ -30,6 +30,7 @@ export default class Popular extends Component {
 
     render() {
         const { products } = this.state;
+        console.log(products)
 
         return (
             <>
@@ -47,7 +48,7 @@ export default class Popular extends Component {
                                     
                                         <div className="card-body">
                                             <Link to={{
-                                                        pathname:`/products/${id}`,
+                                                        pathname:`/detail/${id}`,
                                                         state: this.state
                                                     }}>
                                             <h5 className="card-title">{product_name}</h5>

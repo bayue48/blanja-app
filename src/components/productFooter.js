@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom'
 import { gez, star } from '../../src/assets'
 import axios from 'axios'
 
-const getUrl = 'http://localhost:8000/api/v2/products?sortBy=updated_at&orderBy=desc';
+const getUrl = 'http://localhost:8000/api/v2/products/';
 
-export default class New extends Component {
+export default class productFooter extends Component {
     state = {
         products: {},
     };
@@ -34,7 +34,7 @@ export default class New extends Component {
         return (
             <>
                 <Container style={{ marginTop: '50px' }}>
-                    <h2 className="text">New</h2>
+                    <h2 className="text">You can also like this</h2>
 			        <p className="text-muted">You’ve never seen it before!</p>
                 </Container>
                 <Container>
