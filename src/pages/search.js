@@ -5,47 +5,42 @@ import axios from 'axios'
 import { Card, Container } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
-const getUrl = 'http://localhost:8000/api/v2/search?category='
+const getUrl = 'http://localhost:8000/api/v2/search?'
+const urlParams = new URLSearchParams(window.location.search)
 
-export default class category extends Component {
+export default class search extends Component {
     state = {
-        products: {},
-        id: '',
-
+        products: [],
     }
 
-    getCategory = () => {
-        const { match } = this.props;
-        axios
-            .get(getUrl + match.params.id)
+    searchProduct = () => {
+        axios.get(getUrl + urlParams)
             .then(({ data }) => {
                 this.setState({
-                    products: data,
-                });
+                    products: data.data
+                })
             }).catch((err) => {
-                console.log(err);
+                console.log(err)
             })
     }
 
     componentDidMount = () => {
-        this.getCategory()
+        this.searchProduct()
     }
 
     render() {
-        const { products } = this.state;
-        console.log(products)
-        const { match } = this.props;
-        console.log(match)
+        console.log(this.state.items)
+        const { products } = this.state
         return (
             <>
                 <Navbar />
                 <Container>
                     <br />
-                    <h2>{match.params.id}</h2>
+                    <h2>What you're looking for</h2>
                     <br />
                     <div className="row ml-2">
                         {
-                            products.data && products.data.map(({ id, product_name, product_brand, product_price }) => {
+                             products && products.map(({ id, product_name, product_brand, product_price }) => {
                                 return (
                                     <Card className="col-lg-2 col-md-3 col-sm-4 col-4 mr-3 ml-3 shadow bg-white rounded" id="cards" key={id}>
                                         <img src={gez} className="card-img-top" alt="..." />

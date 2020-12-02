@@ -33,7 +33,7 @@ export default class addProduct extends Component {
         this.setState({ [e.target.name]: e.target.value })
     }
 
-    submitHandler = e => {
+    submitHandler = (e) => {
         e.preventDefault()
         console.log(this.state)
         axios.post('http://localhost:8000/api/v2/products', qs.stringify(this.state), config)
