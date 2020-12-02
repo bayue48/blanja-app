@@ -5,69 +5,47 @@ import axios from 'axios'
 import { Card } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
-const getUrl = 'http://localhost:8000/api/v2/search?'
-const urlParams = new URLSearchParams(window.location.search)
-
-let title  = ''
-let paramSearch = ''
-
-console.log(typeof(urlParams))
-console.log(urlParams)
-if(urlParams.has('category')){
-    title = 'Category '
-}
-
-
-if(urlParams.get('category') === '1'){
-    title += 'T-shirt'
-}else if(urlParams.get('category') === '2'){
-    title += 'Short'
-}else if(urlParams.get('category') === '3'){
-    title += 'Jacket'
-}else if(urlParams.get('category') === '4'){
-    title += 'Pants'
-}else if(urlParams.get('category') === '5'){
-    title += 'Shoes'
-}else{
-    title += ''
-}
-
+const getUrl = 'http://localhost:8000/api/v2/search?category='
 
 export default class SearchPage extends Component {
     state = {
-        items: [],
-    }
-
-    getItemsCategory = () => {
-        axios.get(getUrl + urlParams)
-            .then(({ data }) => {
-                this.setState({
-                    items: data.data
-                })
-            }).catch((err) => {
-                console.log(err)
-            })
-    }
-
-    componentDidMount = () => {
-        this.getItemsCategory()
-        console.log("didMount")
-    }
+        products: {},
+        id:'',
+        
+      }
+      
+      getCategory = () => {
+        const {match} = this.props;
+        axios
+          .get(getUrl + match.params.id)
+          .then(({ data })=>{
+            this.setState({
+              products: data,
+            });
+          }).catch((err) => {
+            console.log(err);
+          })
+      }
+    
+      componentDidMount = () => {
+        this.getCategory()
+      }
 
     render() {
-        console.log(this.state.items)
-        console.log("render")
-        const {items} = this.state
+        const { products } = this.state;
+        console.log (products)
+        const { match } = this.props;
+        console.log (match)
         return (
             <>
                 <div className="container">
                     <Navbar />
-                    <br></br>
-                    <h2>{title}</h2>
-                    <br></br>
+                    <br />
+                    <h2>{match.params.id}</h2>
+                    <br />
                     <div className="row ml-2">
                         {
-                            items && items.map(({ id, product_name, product_brand, product_price }) => {
+                            products.data && products.data.map(({ id, product_name, product_brand, product_price }) => {
                                 return (
                                     <Card className="col-lg-2 col-md-3 col-sm-4 col-4 mr-3 ml-3 shadow bg-white rounded" id="cards" key={id}>
                                         <img src={ gez } className="card-img-top" alt="..."/>

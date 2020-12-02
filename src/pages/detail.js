@@ -31,9 +31,9 @@ export default class detail extends Component {
 
     componentDidUpdate = (prevProps) => {
         if (this.props.match !== prevProps.match) {
-          this.getProduct(this.props.match);
+            this.getProduct(this.props.match);
         }
-      }
+    }
 
     render() {
         const { product } = this.state
@@ -41,22 +41,17 @@ export default class detail extends Component {
 
         return (
             <>
-                { product?(
-                            <div>
-                                <Navbar />
-                                <Product
-                                    key={product.id}
-                                    name={product.product_name}
-                                    brand={product.product_brand}
-                                    rating={product.product_rating}
-                                    desc={product.product_desc}
-                                    price={product.product_price}
-                                    condition={product.product_condition}
-                                />
-                                <ProductFooter />
-                            </div>
-                        
-                    ) : console.log('data kosong', product.id)}
+                <Navbar />
+                <Product
+                    key={product.id}
+                    name={product.product_name}
+                    brand={product.product_brand}
+                    rating={product.product_rating}
+                    desc={product.product_desc}
+                    price={product.product_price}
+                    condition={product.product_condition}
+                />
+                <ProductFooter />
             </>
         )
     }
