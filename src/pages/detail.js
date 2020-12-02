@@ -29,9 +29,11 @@ export default class detail extends Component {
         this.getProduct();
     }
 
-    componentDidUpdate= () => {
-        this.getProduct();
-    }
+    componentDidUpdate = (prevProps) => {
+        if (this.props.match !== prevProps.match) {
+          this.getProduct(this.props.match);
+        }
+      }
 
     render() {
         const { product } = this.state
