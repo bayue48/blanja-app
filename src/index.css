@@ -30,6 +30,120 @@ body {
   color: #9B9B9B;
 }
 
+/* Auth */
+.auth {
+  margin-top: 100px;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+.info {
+  font-weight: bold;
+  font-size: 18px;
+  color: #222222;
+  margin-top: 40px;
+  margin-bottom: 50px;
+}
+
+.confirm {
+  margin-top: 22px;
+  margin-bottom: 50px;
+  font-weight: 500;
+  font-size: 14px;
+  text-align: center;
+  color: #F01F0E;
+}
+
+.button-group {
+  display: flex;
+  justify-content: center;
+}
+
+.button {
+  padding: 15px 30px;
+  width: 123px;
+  height: 48px;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.button-full {
+  background: #DB3022;
+  box-shadow: 0px 1px 8px rgba(0, 0, 0, 0.05);
+  border-radius: 4px 0px 0px 4px;
+  color: white;
+}
+
+.button-shadow {
+  border: 1px solid #9B9B9B;
+  box-sizing: border-box;
+  filter: drop-shadow(0px 1px 8px rgba(0, 0, 0, 0.05));
+  border-radius: 0px 4px 4px 0px;
+  color: gray;
+}
+
+.form-section {
+  width: 400px;
+  margin-top: 40px;
+}
+.form-main {
+  display: flex;
+  margin-top: 16px;
+}
+
+input[type="email"],
+input[type="password"],
+input[type="name"] {
+  font-size: 14px;
+  padding: 7px 0px 7px 15px;
+  width: 100%;
+  height: 48px;
+  border: 1px solid #9B9B9B;
+  box-sizing: border-box;
+  filter: drop-shadow(0px 1px 8px rgba(0, 0, 0, 0.05));
+  border-radius: 4px;
+}
+
+.forgot {
+  display: inline-block;
+  margin-top: 26px;
+  text-align: right;
+  width: 100%;
+  font-size: 14px;
+  color:#db3022;
+  text-decoration: none;
+}
+
+.submit {
+  margin-top: 26px;
+  display: inline-block;
+  padding: 15px 30px;
+  width: 100%;
+  font-size: 14px;
+  color: #FFFFFF;
+  background: #DB3022;
+  border-radius: 25px;
+  text-decoration: none;
+}
+
+.register {
+  margin-top: 40px;
+  font-size: 14px;
+  color: #222222;
+}
+
+.register a {
+  color:#db3022;
+  text-decoration: none;
+}
+
+@media only screen and (max-width: 420px) {
+  .form-section {
+  width: 100%;
+  }
+}
+
 /* Navigation Bar */
 .navbar {
   background: #FFFFFF;
@@ -283,4 +397,129 @@ body {
   font-weight: 600;
   font-size: 16px;
   margin-top: 10px;
+}
+
+/* Detail */
+
+.dtl-prdct{
+  margin-left: 28px;
+}
+.txt-name{
+  font-size: 26px;
+  font-weight: 600;
+}
+.txt-brand{
+  font-size: 16px;
+  margin-top: -20px;
+}
+.btn-c{
+  height:36px;
+  width: 36px; 
+  border-radius:20px;
+  text-align:center;
+  color:grey;
+  display: flex;
+  font-size:25px; 
+  font-weight:bold; 
+  justify-content:center; 
+  align-items: center;
+  text-decoration: none;
+}
+.clr-dtl{
+  height:36px;
+  width:36px; 
+  border-radius:20px; 
+}
+
+.chat{
+  height: 48px;
+  width: 100px;
+  border-radius: 24px;
+  border: solid 1px;
+  color: black;
+  justify-content: center;
+  align-items: center;
+  margin-right: 10px;
+}
+
+.chat:link{
+  color: blanchedalmond;
+}
+
+
+.add-bag{
+  height: 48px;
+  width: 100px;
+  border-radius: 24px;
+  border: solid 1px;
+  color: black;
+  justify-content: center;
+  align-items: center;
+  margin-right: 10px;
+}
+
+.add-bag:link{
+  color: blanchedalmond;
+}
+
+
+.buy-now{
+  height: 48px;
+  width: 300px;
+  border-radius: 24px;
+  color: white;
+  justify-content: center;
+  align-items: center;
+  background-color: #DB3022;
+}
+
+.buy-now:link{
+  color: blanchedalmond;
+}
+
+.information{
+  margin-top: 50px;
+  font-size: 28px;
+  font-weight: 600;
+}
+.condition{
+  margin-top: 40px;
+  font-size: 20px;
+  font-weight: 600;
+}
+.v-condition{
+  margin-top: 10px;
+  font-size: 20px;
+  font-weight: 500;
+  color: #DB3022;
+}
+.v-description{
+  font-size: 14px;
+}
+.prdct-revw{
+  font-size: 28px;
+  font-weight: 600;
+}
+
+
+/* rating */
+.ratee{
+  height: 200px;
+  display: flex;
+}
+.ratee-number{
+  height: 100px;
+  width : 150px;
+}
+.txt-rating{
+  font-size: 60px;
+  font-weight: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-items: flex-end;
+}
+.per{
+  font-size: 20px;
+  font-weight: 400;
 }

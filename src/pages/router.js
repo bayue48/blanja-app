@@ -6,13 +6,12 @@ import Detail from './detail';
 import Cart from './cart';
 // import Checkout from './checkout';
 import NewProduct from './newProduct';
-import Category from './category';
-// import SearchPage from './search'
-// import Login from './login';
-// import SignUp from './signup';
-// import Register from './register';
-// import Reset from './reset';
-// import Confirm from './confirm';
+// import Category from './category';
+import Login from './login';
+import SignUp from './signup';
+import Reset from './reset';
+import Confirm from './confirm';
+import SearchPage from './category'
 
 
 export default function Router() {
@@ -22,13 +21,13 @@ export default function Router() {
       <Route path='/detail/:id' exact component={Detail} />
       <Route path='/cart' exact component={Cart} />
       {/* <Route path='/checkout' exact component={Checkout}/> */}
-      <Route path='/category' exact component={Category} />
+      {/* <Route path='/category' exact component={Category} /> */}
       <Route path='/profile/store/' component={NewProduct} />
-      {/* <Route path='/login' component={Login} />
+      <Route path='/login' component={Login} />
       <Route path='/signup' component={SignUp} />
-      <Route path='/register' component={Register} />
       <Route path='/reset' component={Reset} />
-      <Route path='/confirm' component={Confirm} /> */}
+      <Route path='/confirm' component={Confirm} />
+      <Route path='/search' component={SearchPage} />
     </BrowserRouter>
   )
 }

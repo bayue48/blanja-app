@@ -32,15 +32,15 @@ export default class navbar extends Component {
                         </div>
                         <Nav className="mr-auto d-flex flex-row justify-content-center align-items-center">
 						    <div className="cart">
-							    <a className="btn cart-btn" href="/cart">
+							    <a className="btn cart-btn" href="cart">
                                 <Image src={cart} alt="Cart" />
 							    </a>
 						    </div>
 					        <div className="login">
-						        <a href="/newProduct" className="btn btn-full" type="submit">Login</a>
+						        <a href="login" className="btn btn-full" type="submit">Login</a>
 					        </div>
 					        <div className="signup">
-						        <a href="signup.html" className="btn btn-shadow ml-4" type="submit">Signup</a>
+						        <a href="signup" className="btn btn-shadow ml-4" type="submit">Signup</a>
 					        </div>
 				        </Nav>
                     </Navbar.Collapse>

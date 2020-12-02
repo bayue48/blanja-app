@@ -33,7 +33,7 @@ export default class productFooter extends Component {
 
         return (
             <>
-                <Container style={{ marginTop: '50px' }}>
+                <Container>
                     <h2 className="text">You can also like this</h2>
 			        <p className="text-muted">You’ve never seen it before!</p>
                 </Container>

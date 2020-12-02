@@ -48,14 +48,14 @@ export default class category extends Component {
         return (
             <>
                 <Container style={{ marginTop: '50px' }}>
-                    <h2 className="text">Category</h2>
-                    <p className="text-muted">What are you currently looking for</p>
+                    <h2 className='text'>Category</h2>
+                    <p className='text-muted'>What are you currently looking for</p>
                 </Container>
                 <Container>
                     <Slider { ...settings } >
                     <div>
                     <Link to={{
-                        pathname: `/category/1`,
+                        pathname: `/search?category=1`,
 						state: this.state
                     }}>
                         <Image src={ shirt } />

@@ -1,14 +1,15 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import { gez, star } from '../../src/assets'
 import Navbar from '../components/navbar'
 import axios from 'axios'
-import { Container, Card } from 'react-bootstrap'
+import { Card } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
-import { gez, star } from '../../src/assets'
 
 const getUrl = 'http://localhost:8000/api/v2/search?'
 const urlParams = new URLSearchParams(window.location.search)
 
 let title  = ''
+let paramSearch = ''
 
 console.log(typeof(urlParams))
 console.log(urlParams)
@@ -28,10 +29,11 @@ if(urlParams.get('category') === '1'){
 }else if(urlParams.get('category') === '5'){
     title += 'Shoes'
 }else{
-    title += 'tidak ditemukan'
+    title += ''
 }
 
-export default class categories extends Component {
+
+export default class SearchPage extends Component {
     state = {
         items: [],
     }
@@ -51,23 +53,22 @@ export default class categories extends Component {
         this.getItemsCategory()
         console.log("didMount")
     }
-    
+
     render() {
         console.log(this.state.items)
         console.log("render")
         const {items} = this.state
-
         return (
             <>
-                <Navbar />
-                <br></br>
+                <div className="container">
+                    <Navbar />
+                    <br></br>
                     <h2>{title}</h2>
-                <br></br>
-                <Container>
-                    <div className="row d-flex justify-content-start">
-                        {items && items.map(
-                            ({product_name, product_price, product_brand, id} ) => {
-                                return(
+                    <br></br>
+                    <div className="row ml-2">
+                        {
+                            items && items.map(({ id, product_name, product_brand, product_price }) => {
+                                return (
                                     <Card className="col-lg-2 col-md-3 col-sm-4 col-4 mr-3 ml-3 shadow bg-white rounded" id="cards" key={id}>
                                         <img src={ gez } className="card-img-top" alt="..."/>
                                     
@@ -84,10 +85,10 @@ export default class categories extends Component {
                                         </div>
                                     </Card>
                                 )
-                            }
-                        )}
+                            })
+                        }
                     </div>
-                </Container>
+                </div>
             </>
         )
     }
