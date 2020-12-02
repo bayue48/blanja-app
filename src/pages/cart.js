@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { gez } from '../../src/assets'
 import Navbar from '../components/navbar'
+import { Container } from 'react-bootstrap'
 
 class MyBag extends Component {
     constructor(){
@@ -13,9 +14,9 @@ class MyBag extends Component {
 
     render() {
         return (
-            <div>
+            <>
                 <Navbar />
-                <div className="container">
+                <Container>
                     <h1 style={{fontSize: '34px', fontWeight:'700'}}>My Bag</h1>
                     <div className="d-flex ">
                         <div className="left">
@@ -70,8 +71,8 @@ class MyBag extends Component {
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
+                </Container>
+            </>
         )
     }
 }

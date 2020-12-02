@@ -146,10 +146,11 @@ export default class navbar extends Component {
                                 <div className="dropdown-divider"></div>
                                 <strong>Brand</strong>
                                 <select className="text-muted" style={{ border: "none" }}>
-                                    <option disabled selected hidden>Zalora, Adidas, MiHoYo and many More</option>
+                                    <option disabled selected hidden>More</option>
                                     <option>Zalora Cloth</option>
+                                    <option>Nike</option>
                                     <option>Adidas</option>
-                                    <option>MiHoYo</option>
+                                    <option>Hololive</option>
                                 </select>
                             </div>
                             <div className="modal-footer">
