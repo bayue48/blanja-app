@@ -36,7 +36,7 @@ export default class search extends Component {
                 <Navbar />
                 <Container>
                     <br />
-                    <h2>What you're looking for</h2>
+                    <h2>What's you're looking for</h2>
                     <br />
                     <div className="row ml-2">
                         {
