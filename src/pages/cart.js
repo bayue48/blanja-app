@@ -4,13 +4,23 @@ import { gez } from '../../src/assets'
 import Navbar from '../components/navbar'
 import { Container } from 'react-bootstrap'
 
-class MyBag extends Component {
-    constructor(){
-        super();
-        this.state={
-            qty: 1
-        }
+class Cart extends Component {
+    state = {
+        count: 0,
     }
+
+    increment = () => {
+        this.setState(prevState => ({
+            count: prevState.count + 1
+        }));
+    };
+
+    decrement = () => {
+        this.setState(prevState => ({
+            count: Math.max(prevState.count - 1, 0)
+        }));
+    };
+
 
     render() {
         return (
@@ -37,20 +47,21 @@ class MyBag extends Component {
                                         <input type="checkbox" className="cek" />
                                     </div>
                                     <div className="img-chart">
-                                        <img style={{height: '70px'}} src={ gez } alt=""/>
+                                        <img style={{height: '70px'}} src={gez} alt=""/>
                                     </div>
                                     <div className="ml-3">
                                         <p className="name-prodct">Men's formal suit - Black</p>
                                         <p className="brand-product text-muted">Zalora Cloth</p>
                                     </div>
                                     <div className="d-flex justify-content-between ml-5 mt-3" style={{height:'36px', width:'150px'}}>
-                                        <Link className="text-decoration-none" onClick={() => this.setState({ qty: this.state.qty - 1 })}>
-                                            <div className="btn-c" style={{backgroundColor:'#D4D4D4'}}>-</div>
-                                        </Link>
-                                            <p>{this.state.qty}</p>
-                                        <Link className="text-decoration-none" onClick={() => this.setState({ qty: this.state.qty + 1 })}>
-                                            <div className="btn-c" style={{backgroundColor:'#FFFFFF', border:"solid 1px"}}>+</div>
-                                        </Link>
+                                        <button className="minus2 mr-2" onClick={this.decrement}>
+                                            <div  style={{backgroundColor:'#D4D4D4'}}>-</div>
+                                        </button>
+                                            <p>{this.state.count}</p>
+                                        <button className="minus2 mr-2" onClick={this.increment}>
+                                            <div  style={{backgroundColor:'#FFFFFF', border:"solid 1px"}}>+</div>
+                                        </button>
+                                        
                                     </div>
                                 </div>
                                 <p className="prc">Rp.200000</p>
@@ -78,4 +89,4 @@ class MyBag extends Component {
 }
 
 
-export default MyBag
+export default Cart

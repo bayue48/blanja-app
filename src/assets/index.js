@@ -14,6 +14,8 @@ import cart from './icons/cart.png'
 import star from './icons/b5.png'
 import filter from './icons/filter.png'
 import search from './icons/search.png'
+import pencil from './icons/pencil.png'
+import b5 from './icons/Star.png'
 
 // carousel
 import card1 from './carousel/card1.jpeg'
@@ -44,4 +46,4 @@ import accs from './categories/Group 1245.png'
 export { logo, cart, star, filter, search, card1, card2, card3, card4, 
     shirt, shorts, jacket, pants, shoes, heels, watchs, handbag, 
     bagpack, socks, glass, cap, tie, dress, suit, accs, gez, logos,
-    one, two, three, four, five }
+    one, two, three, four, five, pencil, b5 }

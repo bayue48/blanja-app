@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { logo, filter, cart } from '../../src/assets';
 import { Link } from 'react-router-dom';
+import axios from 'axios'
+import { connect } from "react-redux"
+import { setLoginFalse } from '.././redux/actions/auth'
 import {
     Navbar,
     Container,
@@ -10,7 +13,14 @@ import {
     Nav,
 } from "react-bootstrap";
 
-export default class navbar extends Component {
+const token = 'Bearer ' + localStorage.getItem("token")
+const config = {
+    headers: {
+        'x-access-token': token
+    }
+}
+
+class navbar extends Component {
     state = {
         product_name: ''
     }
@@ -22,9 +32,94 @@ export default class navbar extends Component {
         window.location.href = 'http://localhost:3000/search?name=' + this.state.product_name
     }
 
+    logoutApp = () => {
+        console.log(token)
+        const { dispatch, auth } = this.props;
+        axios.post(`${process.env.REACT_APP_API}/api/v2/auth/logout`, token, config)
+            .then((result) => {
+                this.props.dispatch(setLoginFalse())
+                localStorage.removeItem("token")
+                localStorage.removeItem('email')
+                // localStorage.removeItem('seller_id')
+                // localStorage.removeItem('level')
+                console.log(localStorage)
+
+                // this.setState({
+                //     isLogin: false
+                // })
+            }).catch((error) => {
+                console.log(error)
+            })
+    }
+
     render() {
         const { product_name } = this.state
+        const { auth } = this.props
         console.log(product_name)
+
+        let btnLogout;
+        let email;
+        if (auth.isLogin) {
+            email = localStorage.getItem("email")
+            btnLogout = <>
+                <div style={{ display: "flex" }}>
+                    <div className="login">
+                        <Link
+                            to={{
+                                pathname: '/new',
+                                state: this.state,
+                            }}
+                        >
+                            <div className="btn btn-full" type="submit">
+                                Profile
+                                    </div>
+                        </Link>
+                    </div>
+                    <div className="signup">
+                        <Link
+                            to={{
+                                pathname: '/logout',
+                                state: this.state,
+                            }}
+                        >
+                            <div href="logout" className="btn btn-shadow ml-4" type="submit">
+                                Logout
+                                    </div>
+                        </Link>
+                    </div>
+                </div>
+            </>
+        } else {
+            btnLogout =
+                <>
+                    <div style={{ display: "flex" }}>
+                        <div className="login">
+                            <Link
+                                to={{
+                                    pathname: '/login',
+                                    state: this.state,
+                                }}
+                            >
+                                <div className="btn btn-full" type="submit">
+                                    Login
+                                    </div>
+                            </Link>
+                        </div>
+                        <div className="signup">
+                            <Link
+                                to={{
+                                    pathname: '/signup',
+                                    state: this.state,
+                                }}
+                            >
+                                <div href="signup" className="btn btn-shadow ml-4" type="submit">
+                                    Signup
+                                    </div>
+                            </Link>
+                        </div>
+                    </div>
+                </>
+        }
 
         return (
             <>
@@ -84,29 +179,8 @@ export default class navbar extends Component {
                                         </div>
                                     </Link>
                                 </div>
-                                <div className="login">
-                                    <Link
-                                        to={{
-                                            pathname: '/login',
-                                            state: this.state,
-                                        }}
-                                    >
-                                        <div className="btn btn-full" type="submit">
-                                            Login
-                                    </div>
-                                    </Link>
-                                </div>
-                                <div className="signup">
-                                    <Link
-                                        to={{
-                                            pathname: '/signup',
-                                            state: this.state,
-                                        }}
-                                    >
-                                        <div href="signup" className="btn btn-shadow ml-4" type="submit">
-                                            Signup
-                                    </div>
-                                    </Link>
+                                <div>
+                                    {btnLogout}
                                 </div>
                             </Nav>
                         </Navbar.Collapse>
@@ -164,3 +238,11 @@ export default class navbar extends Component {
         );
     }
 }
+
+const mapStateToProps = ({ auth }) => {
+    return {
+        auth,
+    };
+};
+
+export default connect(mapStateToProps)(navbar);

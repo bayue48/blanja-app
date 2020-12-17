@@ -106,7 +106,7 @@ export default class category extends Component {
                         </div>
                         <div>
                             <Link to={{
-                                pathname: `/category/5`,
+                                pathname: `/category/6`,
                                 state: this.state
                             }}>
                                 <Image src={heels} className="category" />
@@ -114,7 +114,7 @@ export default class category extends Component {
                         </div>
                         <div>
                             <Link to={{
-                                pathname: `/category/6`,
+                                pathname: `/category/7`,
                                 state: this.state
                             }}>
                                 <Image src={watchs} className="category" />
@@ -122,7 +122,7 @@ export default class category extends Component {
                         </div>
                         <div>
                             <Link to={{
-                                pathname: `/category/7`,
+                                pathname: `/category/8`,
                                 state: this.state
                             }}>
                                 <Image src={handbag} className="category" />
@@ -130,7 +130,7 @@ export default class category extends Component {
                         </div>
                         <div>
                             <Link to={{
-                                pathname: `/category/8`,
+                                pathname: `/category/9`,
                                 state: this.state
                             }}>
                                 <Image src={bagpack} className="category" />
@@ -138,7 +138,7 @@ export default class category extends Component {
                         </div>
                         <div>
                             <Link to={{
-                                pathname: `/category/9`,
+                                pathname: `/category/10`,
                                 state: this.state
                             }}>
                                 <Image src={socks} className="category" />
@@ -146,7 +146,7 @@ export default class category extends Component {
                         </div>
                         <div>
                             <Link to={{
-                                pathname: `/category/10`,
+                                pathname: `/category/11`,
                                 state: this.state
                             }}>
                                 <Image src={glass} className="category" />
@@ -154,7 +154,7 @@ export default class category extends Component {
                         </div>
                         <div>
                             <Link to={{
-                                pathname: `/category/11`,
+                                pathname: `/category/12`,
                                 state: this.state
                             }}>
                                 <Image src={cap} className="category" />
@@ -162,7 +162,7 @@ export default class category extends Component {
                         </div>
                         <div>
                             <Link to={{
-                                pathname: `/category/12`,
+                                pathname: `/category/13`,
                                 state: this.state
                             }}>
                                 <Image src={tie} className="category" />
@@ -170,7 +170,7 @@ export default class category extends Component {
                         </div>
                         <div>
                             <Link to={{
-                                pathname: `/category/13`,
+                                pathname: `/category/14`,
                                 state: this.state
                             }}>
                                 <Image src={dress} className="category" />
@@ -178,7 +178,7 @@ export default class category extends Component {
                         </div>
                         <div>
                             <Link to={{
-                                pathname: `/category/14`,
+                                pathname: `/category/15`,
                                 state: this.state
                             }}>
                                 <Image src={accs} className="category" />

@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { Container, Card } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
-import { gez, star } from '../../src/assets'
+import Rating from './rating';
 import axios from 'axios'
 
-const getUrl = 'http://localhost:8000/api/v2/products/';
+// const getUrl = 'http://localhost:8000/api/v2/products/';
 
 export default class productFooter extends Component {
     state = {
@@ -13,10 +13,10 @@ export default class productFooter extends Component {
 
     getAllProducts = () => {
         axios
-        .get(getUrl)
+        .get(`${process.env.REACT_APP_API}/api/v2/products/`)
         .then(({data}) => {
             this.setState({
-                products: data
+                products: data.data
             })
         })
         .catch((err) => {
@@ -39,11 +39,11 @@ export default class productFooter extends Component {
                 </Container>
                 <Container>
                     <div className="row d-flex justify-content-start">
-                        {products.data && products.data.map(
-                            ({product_name, product_price, product_brand, id} ) => {
+                        {products.products && products.products.map(
+                            ({product_name, product_price, product_brand, product_img, product_rating, id} ) => {
                                 return(
                                     <Card className="col-lg-2 col-md-3 col-sm-4 col-4 mr-3 ml-3 shadow bg-white rounded" id="cards" key={id}>
-                                        <img src={ gez } className="card-img-top" alt="..."/>
+                                        <img src={`${process.env.REACT_APP_API}` + product_img.split(',')[0]} className="card-img-top" style={{maxHeight: "50%"}} alt="..."/>
                                     
                                         <div className="card-body">
                                             <Link to={{
@@ -54,7 +54,7 @@ export default class productFooter extends Component {
                                             </Link>
                                             <p className="price">Rp. {product_price}</p>
                                             <p className="text-muted">{product_brand}</p>
-                                            <img src={ star } className="img-fluid" alt="b5" />
+                                            <Rating product_rating={product_rating}/>
                                         </div>
                                     </Card>
                                 )
