@@ -17,7 +17,7 @@
 
 ## Description
 
-Sebuah web E-commerce jual beli barang baru atau bekas bernama Blanja yang dibuat menggunakan bootstrap frameworks.
+An E-commerce website thar we can buy and sell new or used goods called Blanja which is created using bootstrap frameworks.
 
 ## Screenshoots
 
