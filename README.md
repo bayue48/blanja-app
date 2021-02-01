@@ -22,6 +22,9 @@ An E-commerce website thar we can buy and sell new or used goods called Blanja w
 ## Screenshoots
 
 <div align="center">
+   <img width="100%" src="./public/Screenshot_15.png">
+   <img width="100%" src="./public/Screenshot_6.png">
+   <img width="100%" src="./public/Screenshot_8.png">
 </div>
 
 ## Features
