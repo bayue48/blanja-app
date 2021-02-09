@@ -14,6 +14,7 @@
 - [Screenshoots](#screenshoots)
 - [Demo](#demo)
 - [Related Project](#related-project)
+- [License](#license)
 
 ## Description
 
@@ -88,3 +89,7 @@ This is Blanja Web build version, let's try it.
 RESTful API for this web application, clone this for development.
 
 <a href="https://github.com/bayue48/blanja-api.git">REST API</a>
+
+## License
+
+Distributed under the [MIT](https://github.com/bayue48/blanja-app/blob/master/LICENSE) License.
