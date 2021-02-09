@@ -6,26 +6,18 @@
 ## Contents
 
 - [Description](#description)
-- [Screenshoots](#screenshoots)
 - [Features](#features)
 - [Requirements](#requirements)
 - [Installation](#installation)
 - [ENV](#ENV)
 - [Usage](#Usage)
+- [Screenshoots](#screenshoots)
 - [Demo](#demo)
 - [Related Project](#related-project)
 
 ## Description
 
 An E-commerce website thar we can buy and sell new or used goods called Blanja which is created using bootstrap frameworks.
-
-## Screenshoots
-
-<div align="center">
-   <img width="100%" src="./public/Screenshot_15.png">
-   <img width="100%" src="./public/Screenshot_6.png">
-   <img width="100%" src="./public/Screenshot_8.png">
-</div>
 
 ## Features
 
@@ -76,6 +68,14 @@ Runs the app in the development mode.<br>
 Open [http://localhost:3000/](http://localhost:3000/) to view it in the browser.
 
 If you want to build, type `npm run build`.
+
+## Screenshoots
+
+<div align="center">
+   <img width="100%" src="./public/Screenshot_15.png">
+   <img width="100%" src="./public/Screenshot_6.png">
+   <img width="100%" src="./public/Screenshot_8.png">
+</div>
 
 ## Demo
 
