@@ -9,10 +9,10 @@ import Cart from './cart';
 import Checkout from './checkout';
 import New from './newProduct';
 import Category from './category';
-import Login from './login';
-import SignUp from './signup';
-import Reset from './reset';
-import Confirm from './confirm';
+import Login from './auth/login';
+import SignUp from './auth/signup';
+import Reset from './auth/reset';
+import Confirm from './auth/confirm';
 import Search from './search'
 import List from './listProduct'
 import Update from './updateProduct'

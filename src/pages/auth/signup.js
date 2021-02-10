@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Container, Form, Image } from 'react-bootstrap'
-import { logos } from '../../src/assets'
+import { logos } from '../../../src/assets'
 import { connect } from 'react-redux'
 import axios from 'axios'
 

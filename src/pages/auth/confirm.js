@@ -1,6 +1,6 @@
 import React from 'react'
 import { Container, Form, Image } from 'react-bootstrap'
-import { logos } from '../../src/assets'
+import { logos } from '../../../src/assets'
 
 export default function confirm() {
     return (
