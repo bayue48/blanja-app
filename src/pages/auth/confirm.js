@@ -19,7 +19,7 @@ export default function confirm() {
                         <input type="password" placeholder="Confirm New Password" name="psw" required />
                     </div>
                 </Form>
-                <a className="submit" href="login" type="submit">PRIMARY</a>
+                <a className="submit" href="login" type="submit">SUBMIT</a>
                 <p className="register">Don't have a Tokopedia account? <a href="signup">Register</a></p>
             </div>
         </Container>

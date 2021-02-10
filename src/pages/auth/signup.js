@@ -3,6 +3,8 @@ import { Container, Form, Image } from 'react-bootstrap'
 import { logos } from '../../../src/assets'
 import { connect } from 'react-redux'
 import axios from 'axios'
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 class Register extends Component {
     handleSubmit = (e) => {
@@ -14,10 +16,26 @@ class Register extends Component {
         }
         axios.post(`${process.env.REACT_APP_API}/api/v2/auth/register`, data)
             .then(({ data }) => {
-                alert(data.data.msg)
+                toast('Register Success', {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    });
                 window.location.href = "/login"
             }).catch((error) => {
-                alert(error)
+                toast('Register Failed', {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    });
             })
     }
     render() {

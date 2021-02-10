@@ -6,6 +6,8 @@ import axios from 'axios'
 import Rating from './rating';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 // const url = 'http://localhost:8000/api/v2/products/'
 
@@ -55,7 +57,15 @@ export default class product extends Component {
         axios.patch(`${process.env.REACT_APP_API}/api/v2/products/` + this.props.id, this.state)
             .then(response => {
                 console.log(response)
-                alert('Data sukses diedit')
+                toast('Success Update Product', {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    });
             })
             .catch(error => {
                 console.log(error)
@@ -66,7 +76,15 @@ export default class product extends Component {
         axios.delete(`${process.env.REACT_APP_API}/api/v2/products/` + this.props.id)
             .then(response => {
                 console.log(response)
-                alert('Data sukses dihapus')
+                toast('Success Delete Product', {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    });
             })
             .catch(error => {
                 console.log(error)

@@ -15,7 +15,7 @@ export default function reset() {
                         <input type="email" placeholder="Email" name="uname" required />
                     </div>
                 </Form>
-                <a className="submit" href="confirm" type="submit">PRIMARY</a>
+                <a className="submit" href="confirm" type="submit">SUBMIT</a>
                 <p className="register">Don't have a Tokopedia account? <a href="signup">Register</a></p>
             </div>
         </Container>
