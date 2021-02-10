@@ -6,6 +6,7 @@ import four from "./4.png";
 import five from "./5.png";
 import next from "./next.png";
 import prev from "./prev.png";
+import user from "./user.png";
 
 // logo
 import logo from "./icons/LogoBig.png";
@@ -18,6 +19,13 @@ import filter from "./icons/filter.png";
 import search from "./icons/search.png";
 import pencil from "./icons/pencil.png";
 import b5 from "./icons/Star.png";
+import account from "./icons/account.png";
+import address from "./icons/address.png";
+import bag from "./icons/bag.png";
+import pen from "./icons/edit.png";
+import home from "./icons/home.png";
+import order from "./icons/order.png";
+import product from "./icons/product.png";
 
 // carousel
 import card1 from "./carousel/1.jfif";
@@ -81,5 +89,13 @@ export {
   pencil,
   b5,
   next,
-  prev
+  prev,
+  account,
+  address,
+  bag,
+  pen,
+  home,
+  order,
+  product,
+  user
 };
