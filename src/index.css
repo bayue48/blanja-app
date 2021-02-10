@@ -203,27 +203,6 @@ input[type="name"] {
   width: 100px;
 }
 
-/* Carousel */
-.img-carousel {
-  height: 180px;
-}
-
-.carousel h1 {
-  position: absolute;
-  font-weight: bold;
-  font-size: 38px;
-  line-height: 38px;
-  color: #FFFFFF;
-  text-align: center;
-  top: 40%;
-  left: 20%;
-}
-
-.category {
-  padding: 10px;
-  margin-left: auto;
-  margin-right: auto;
-}
 /* Card */
 .card {
   margin-bottom: 20px;
