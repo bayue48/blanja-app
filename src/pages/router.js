@@ -16,6 +16,7 @@ import Confirm from './auth/confirm';
 import Search from './search'
 import List from './listProduct'
 import Update from './updateProduct'
+import Profile from "./profile";
 
 
 export default function Router() {
@@ -36,6 +37,7 @@ export default function Router() {
         <Route path='/list' component={List} />
         {/* <Route path='/delete/:id' component={Delete} /> */}
         <Route path='/update/:id' component={Update} />
+        <Route path='/account' component={Profile} />
       </BrowserRouter>
     </Provider>
   )
