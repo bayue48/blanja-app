@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { logo, filter, cart, mail, bell, avatar } from "../../src/assets";
 import { Link, withRouter } from "react-router-dom";
 import axios from "axios";
-import { connect, useSelector } from "react-redux";
+import { connect } from "react-redux";
 import { logout } from "../redux/actions/auth";
 import {
   Navbar,
@@ -52,8 +52,10 @@ class navbar extends Component {
         "x-access-token": "Bearer " + this.props.token,
       },
     };
+    const data = "";
+    console.log("token", this.props.token)
     axios
-      .post(base_url + "/auth/logout", config)
+      .post(base_url + "/auth/logout", data, config)
       .then((res) => {
         this.props.logoutRedux();
       })
@@ -78,7 +80,7 @@ class navbar extends Component {
                 <img src={mail} alt="" />
               </button>
             </Link>
-            {level === "1" ? (
+            {level === 1 ? (
               <Link to="/account/seller">
                 {/* <p>Username</p> */}
                 <button className="btn btn-default mr-2">
@@ -93,7 +95,7 @@ class navbar extends Component {
                 </button>
               </Link>
             )}
-            <button className="btn btn-secondary" onClick={this.logOut}>
+            <button className="btn btn-light" onClick={this.logoutApp}>
               <Link
                 style={{ color: "black", textDecoration: "none" }}
                 to="/login"
