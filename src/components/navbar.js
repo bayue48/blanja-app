@@ -97,7 +97,7 @@ class navbar extends Component {
             )}
             <button className="btn btn-light" onClick={this.logoutApp}>
               <Link
-                style={{ color: "black", textDecoration: "none" }}
+                style={{ color: "grey", textDecoration: "none" }}
                 to="/login"
               >
                 <i class="fas fa-sign-out-alt"></i>
@@ -185,6 +185,7 @@ class navbar extends Component {
                         class="bi bi-search"
                         fill="currentColor"
                         xmlns="http://www.w3.org/2000/svg"
+                        style={{ color: "grey", textDecoration: "none" }}
                       >
                         <path
                           fill-rule="evenodd"

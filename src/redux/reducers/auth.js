@@ -28,6 +28,8 @@ const authReducer = (state = INITIAL_STATE, action) => {
         token: null,
         id: null,
         level: null,
+        name: null,
+        email: null
       };
     case actionTypes.SET_EMAIL:
       return {
