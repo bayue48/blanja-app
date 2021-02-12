@@ -13,7 +13,7 @@ export default class New extends Component {
 
     getAllProducts = () => {
         axios
-        .get(`${process.env.REACT_APP_API}/api/v2/products?sortBy=updated_at&orderBy=desc`)
+        .get(`${process.env.REACT_APP_API}/products/sort?sortBy=updated_at&orderBy=desc`)
         .then(({data}) => {
             this.setState({
                 products: data.data

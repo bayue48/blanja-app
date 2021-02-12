@@ -5,7 +5,7 @@ import axios from 'axios'
 import { Card, Container } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
-const getUrl = 'http://localhost:8000/api/v2/search?category='
+const getUrl = 'http://localhost:8000/search?category='
 
 export default class category extends Component {
     state = {
@@ -20,7 +20,7 @@ export default class category extends Component {
             .get(getUrl + match.params.id)
             .then(({ data }) => {
                 this.setState({
-                    products: data,
+                    products: data.data,
                 });
             }).catch((err) => {
                 console.log(err);
@@ -41,18 +41,18 @@ export default class category extends Component {
                 <Navbar />
                 <Container>
                     <div className="row ml-2">
-                        {
-                            products.data && products.data.map(({ id, product_name, product_brand, product_price, product_img, product_rating }) => {
-                                return (
+                    {products.products && products.products.map(
+                            ({product_name, product_price, product_brand, product_img, product_rating, id} ) => {
+                                return(
                                     <Card className="col-lg-2 col-md-3 col-sm-4 col-4 mr-3 ml-3 shadow bg-white rounded" id="cards" key={id}>
-                                        <img src={`${process.env.REACT_APP_API}` + product_img.split(',')[0]} className="card-img-top" style={{maxHeight: "50%"}} alt="..." />
-
+                                        <img src={`${process.env.REACT_APP_API}` + product_img.split(',')[0]} className="card-img-top" style={{maxHeight: "50%"}} alt="..."/>
+                                    
                                         <div className="card-body">
                                             <Link to={{
-                                                pathname: `/detail/${id}`,
-                                                state: this.state
-                                            }}>
-                                                <h5 className="card-title">{product_name}</h5>
+                                                        pathname:`/detail/${id}`,
+                                                        state: this.state
+                                                    }}>
+                                            <h5 className="card-title">{product_name}</h5>
                                             </Link>
                                             <p className="price">Rp. {product_price}</p>
                                             <p className="text-muted">{product_brand}</p>
@@ -60,8 +60,8 @@ export default class category extends Component {
                                         </div>
                                     </Card>
                                 )
-                            })
-                        }
+                            }
+                        )}
                     </div>
                 </Container>
             </>

@@ -1,7 +1,8 @@
 import React from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { Provider } from "react-redux";
-import store from "../redux/store";
+import {store, persistor} from '../redux/store';
+import { PersistGate } from "redux-persist/integration/react";
 
 import Home from './home';
 import Detail from './detail';
@@ -22,7 +23,9 @@ import Profile from "./profile";
 export default function Router() {
   return (
     <Provider store={store}>
-      <BrowserRouter>
+      <PersistGate loading={null} persistor={persistor}>
+        <BrowserRouter>
+          <Switch>
         <Route path='/' exact component={Home} />
         <Route path='/detail/:id' exact component={Detail} />
         <Route path='/cart' exact component={Cart} />
@@ -38,7 +41,9 @@ export default function Router() {
         {/* <Route path='/delete/:id' component={Delete} /> */}
         <Route path='/update/:id' component={Update} />
         <Route path='/account' component={Profile} />
-      </BrowserRouter>
+        </Switch>
+        </BrowserRouter>
+      </PersistGate>
     </Provider>
   )
 }

@@ -14,7 +14,7 @@ export default class detail extends Component {
     getProduct = () => {
         const { match } = this.props
         axios
-            .get(`${process.env.REACT_APP_API}/api/v2/products/` + match.params.id)
+            .get(`${process.env.REACT_APP_API}/products/` + match.params.id)
             .then(({ data }) => {
                 this.setState({
                     product: data

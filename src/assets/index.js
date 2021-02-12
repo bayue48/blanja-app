@@ -26,6 +26,9 @@ import pen from "./icons/edit.png";
 import home from "./icons/home.png";
 import order from "./icons/order.png";
 import product from "./icons/product.png";
+import mail from "./icons/mail.png";
+import bell from "./icons/bell.png";
+import avatar from "./icons/user.png";
 
 // carousel
 import card1 from "./carousel/1.jfif";
@@ -97,5 +100,8 @@ export {
   home,
   order,
   product,
-  user
+  user,
+  mail,
+  bell,
+  avatar
 };

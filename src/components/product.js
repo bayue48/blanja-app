@@ -36,7 +36,7 @@ export default class product extends Component {
 
     showHandler = () => {
         axios
-            .get(`${process.env.REACT_APP_API}/api/v2/products/` + this.props.id)
+            .get(`${process.env.REACT_APP_API}/products/` + this.props.id)
             .then(({ data }) => {
                 this.setState({
                     product: data.data,
@@ -54,7 +54,7 @@ export default class product extends Component {
     submitHandler = (e) => {
         e.preventDefault()
         console.log(this.state)
-        axios.patch(`${process.env.REACT_APP_API}/api/v2/products/` + this.props.id, this.state)
+        axios.patch(`${process.env.REACT_APP_API}/products/` + this.props.id, this.state)
             .then(response => {
                 console.log(response)
                 toast('Success Update Product', {
@@ -73,7 +73,7 @@ export default class product extends Component {
     }
 
     deleteHandle = () => {
-        axios.delete(`${process.env.REACT_APP_API}/api/v2/products/` + this.props.id)
+        axios.delete(`${process.env.REACT_APP_API}/products/` + this.props.id)
             .then(response => {
                 console.log(response)
                 toast('Success Delete Product', {

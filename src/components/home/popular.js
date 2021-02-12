@@ -13,7 +13,7 @@ export default class Popular extends Component {
 
     getAllProducts = () => {
         axios
-        .get(`${process.env.REACT_APP_API}/api/v2/products?sortBy=product_rating&orderBy=desc`)
+        .get(`${process.env.REACT_APP_API}/products/sort?sortBy=product_rating&orderBy=desc`)
         .then(({data}) => {
             this.setState({
                 products: data.data

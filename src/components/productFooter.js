@@ -13,7 +13,7 @@ export default class productFooter extends Component {
 
     getAllProducts = () => {
         axios
-        .get(`${process.env.REACT_APP_API}/api/v2/products/`)
+        .get(`${process.env.REACT_APP_API}/products/sort/`)
         .then(({data}) => {
             this.setState({
                 products: data.data
