@@ -3,56 +3,16 @@ import { Row, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Rating from "./rating";
 import { blank } from "../assets";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { connect } from "react-redux";
-import { addToCart, addToCheckout } from "../redux/actions/cart";
 
-const IMG = process.env.REACT_APP_API;
-
-class product extends Component {
+export default class product extends Component {
   constructor(props) {
     super(props);
-    console.log("ini prps", this.props.uid);
+    console.log(this.props);
     this.state = {
       sizes: 0,
       qty: 0,
     };
   }
-
-  addToCart = () => {
-    addToCart(
-      this.props.id,
-      IMG + this.props.image.split(",")[0],
-      this.props.price,
-      this.props.name,
-      this.props.brand
-    );
-    console.log(
-      "brand",
-      this.props.brand,
-      IMG + this.props.image.split(",")[0]
-    );
-    toast("Product Added to Bag", {
-      position: "top-right",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
-  };
-
-  addToCheckout = () => {
-    addToCheckout(
-      this.props.id,
-      IMG + this.props.image.split(",")[0],
-      this.props.price,
-      this.props.name,
-      this.props.brand
-    );
-  };
 
   handleClickQty = () => {
     this.setState((prevState) => ({ sizes: prevState.sizes + 1 }));
@@ -91,8 +51,8 @@ class product extends Component {
       color,
       uid,
       qtys,
+      addToCart,
     } = this.props;
-
     return (
       <Container>
         <p
@@ -276,14 +236,14 @@ class product extends Component {
               <Link className="chat text-decoration-none d-flex">Chat</Link>
               <Link
                 className="add-bag text-decoration-none d-flex"
-                onClick={this.addToCart}
+                onClick={addToCart}
               >
                 Add bag
               </Link>
               <Link
                 to={{ pathname: "/checkout" }}
                 className="buy-now text-decoration-none d-flex"
-                onClick={this.addToCheckout}
+                onClick={addToCart}
               >
                 Buy Now
               </Link>
@@ -315,12 +275,3 @@ class product extends Component {
     );
   }
 }
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    addToCart: (id, image, price, name, brand, uid) =>
-      dispatch(addToCart(id, image, price, name, brand, uid)),
-  };
-};
-
-export default connect(null, mapDispatchToProps)(product);
