@@ -53,7 +53,7 @@ class navbar extends Component {
       },
     };
     const data = "";
-    console.log("token", this.props.token)
+    console.log("token", this.props.token);
     axios
       .post(base_url + "/auth/logout", data, config)
       .then((res) => {
@@ -62,9 +62,11 @@ class navbar extends Component {
       .catch((err) => console.error(err));
   };
 
+  search = () => {};
+
   render() {
     console.log(this.state);
-    const { isLogin, level } = this.props;
+    const { isLogin } = this.props;
     let loginBtn;
     if (isLogin === true) {
       loginBtn = (
@@ -80,22 +82,17 @@ class navbar extends Component {
                 <img src={mail} alt="" />
               </button>
             </Link>
-            {level === 1 ? (
-              <Link to="/account/seller">
-                {/* <p>Username</p> */}
-                <button className="btn btn-default mr-2">
-                  <img src={avatar} alt="" />
-                </button>
-              </Link>
-            ) : (
-              <Link to="/account/custommer">
-                {/* <p>Username</p> */}
-                <button className="btn btn-default mr-2">
-                  <img src={avatar} alt="" />
-                </button>
-              </Link>
-            )}
-            <button className="btn btn-light" onClick={this.logoutApp}>
+            <Link to="/account">
+              {/* <p>Username</p> */}
+              <button className="btn btn-default mr-2">
+                <img src={avatar} alt="" />
+              </button>
+            </Link>
+            <button
+              className="btn btn-light"
+              data-toggle="modal"
+              data-target=".bd-example-modal-sm"
+            >
               <Link
                 style={{ color: "grey", textDecoration: "none" }}
                 to="/login"
@@ -226,7 +223,7 @@ class navbar extends Component {
           </Container>
         </Navbar>
 
-        {/* Modal */}
+        {/* filter */}
         <div
           className="modal fade"
           id="FilterModal"
@@ -241,57 +238,149 @@ class navbar extends Component {
                 <h5 className="modal-title" id="FilterModalLabel">
                   Filter
                 </h5>
-                <button
-                  type="button"
-                  className="close"
-                  data-dismiss="modal"
-                  aria-label="Close"
-                >
-                  <span aria-hidden="true">&times;</span>
-                </button>
               </div>
               <div className="modal-body">
                 <strong>Colors</strong>
                 <br></br>
-                <input type="radio" /> Red
-                <input type="radio" /> Green
-                <input type="radio" /> Blue
-                <input type="radio" /> Black
+                <div className="row d-flex">
+                  <button
+                    id="1"
+                    name="color"
+                    className="btn btn-dark ml-2"
+                    onClick={this.clickOptHandler}
+                  >
+                    Black
+                  </button>
+                  <button
+                    id="2"
+                    name="color"
+                    className="btn btn-light ml-2"
+                    onClick={this.clickOptHandler}
+                  >
+                    White
+                  </button>
+                  <button
+                    id="3"
+                    name="color"
+                    className="btn btn-danger ml-3"
+                    width="100"
+                    onClick={this.clickOptHandler}
+                  >
+                    Red
+                  </button>
+                  <button
+                    id="4"
+                    name="color"
+                    className="btn btn-success ml-2"
+                    onClick={this.clickOptHandler}
+                  >
+                    Green
+                  </button>
+                  <button
+                    id="5"
+                    name="color"
+                    className="btn btn-primary ml-2"
+                    onClick={this.clickOptHandler}
+                  >
+                    Blue
+                  </button>
+                </div>
                 <div className="dropdown-divider"></div>
                 <strong>Sizes</strong>
                 <br></br>
-                <button className="btn btn-outline-secondary ml-2">XS</button>
-                <button className="btn btn-danger ml-2">S</button>
-                <button className="btn btn-danger ml-2">M</button>
-                <button className="btn btn-outline-secondary ml-2">L</button>
-                <button className="btn btn-outline-secondary ml-2">XL</button>
+                <div className="row d-flex ml-2">
+                  <button
+                    id="1"
+                    name="size"
+                    className="btn btn-outline-secondary mr-2 mb-1"
+                    onClick={this.clickOptHandler}
+                  >
+                    XS
+                  </button>
+                  <button
+                    id="2"
+                    name="size"
+                    className="btn btn-outline-secondary mr-2 mb-1"
+                    onClick={this.clickOptHandler}
+                  >
+                    S
+                  </button>
+                  <button
+                    id="3"
+                    name="size"
+                    className="btn btn-outline-secondary mr-2 mb-1"
+                    onClick={this.clickOptHandler}
+                  >
+                    M
+                  </button>
+                  <button
+                    id="4"
+                    name="size"
+                    className="btn btn-outline-secondary mr-2 mb-1"
+                    onClick={this.clickOptHandler}
+                  >
+                    L
+                  </button>
+                  <button
+                    id="5"
+                    name="size"
+                    className="btn btn-outline-secondary mr-2 mb-1"
+                    onClick={this.clickOptHandler}
+                  >
+                    XL
+                  </button>
+                </div>
                 <div className="dropdown-divider"></div>
                 <strong>Category</strong>
                 <br></br>
-                <button className="btn btn-outline-secondary ml-2">
+                <button
+                  id="1"
+                  name="category"
+                  className="btn btn-outline-secondary ml-2"
+                  onClick={this.clickOptHandler}
+                >
                   T-shirt
                 </button>
-                <button className="btn btn-outline-secondary ml-2">
+                <button
+                  id="2"
+                  name="category"
+                  className="btn btn-outline-secondary ml-2"
+                  onClick={this.clickOptHandler}
+                >
                   Short
                 </button>
-                <button className="btn btn-outline-secondary ml-2">
+                <button
+                  id="3"
+                  name="category"
+                  className="btn btn-outline-secondary ml-2"
+                  onClick={this.clickOptHandler}
+                >
                   Jacket
                 </button>
-                <button className="btn btn-outline-secondary ml-2">
+                <button
+                  id="4"
+                  name="category"
+                  className="btn btn-outline-secondary ml-2"
+                  onClick={this.clickOptHandler}
+                >
                   Pants
                 </button>
-                <button className="btn btn-outline-secondary ml-2">
+                <button
+                  id="5"
+                  name="category"
+                  className="btn btn-outline-secondary ml-2"
+                  onClick={this.clickOptHandler}
+                >
                   Shoes
                 </button>
                 <div className="dropdown-divider"></div>
                 <strong>Brand</strong>
                 <select className="text-muted" style={{ border: "none" }}>
                   <option disabled selected hidden>
-                    More
+                    Adidas, Original, Hololive and many More
                   </option>
-                  <option>Zalora Cloth</option>
-                  <option>Nike</option>
                   <option>Adidas</option>
+                  <option>Original</option>
                   <option>Hololive</option>
                 </select>
               </div>
@@ -304,12 +393,56 @@ class navbar extends Component {
                 >
                   Discard
                 </button>
+                <Link
+                  to={{
+                    pathname: "/search",
+                    search:
+                      this.props.history.location.search +
+                      this.state.color +
+                      this.state.size +
+                      this.state.category,
+                  }}
+                >
+                  <button
+                    type="button"
+                    className="btn btn-danger rounded-pill ml-auto ml-1"
+                    style={{ width: "200px" }}
+                  >
+                    Apply
+                  </button>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* logout */}
+        <div
+          class="modal fade bd-example-modal-sm"
+          tabindex="-1"
+          role="dialog"
+          aria-labelledby="mySmallModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Are you sure want to logout?</h5>
+              </div>
+              <div class="modal-footer">
                 <button
                   type="button"
-                  className="btn btn-danger rounded-pill ml-auto ml-1"
-                  style={{ width: "200px" }}
+                  class="btn btn-secondary"
+                  data-dismiss="modal"
                 >
-                  Apply
+                  No
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-danger"
+                  onClick={this.logoutApp}
+                >
+                  Yes
                 </button>
               </div>
             </div>
@@ -321,20 +454,20 @@ class navbar extends Component {
 }
 
 const mapStateToProps = (state) => {
-    return {
-      isLogin: state.auth.isLogin,
-      token: state.auth.token,
-      id: state.auth.id,
-      level: state.auth.level,
-      name: state.auth.name,
-      email: state.auth.email,
-    };
+  return {
+    isLogin: state.auth.isLogin,
+    token: state.auth.token,
+    id: state.auth.id,
+    level: state.auth.level,
+    name: state.auth.name,
+    email: state.auth.email,
   };
-  
-  const mapDispatchToProps = (dispatch) => {
-    return {
-      logoutRedux: () => dispatch(logout()),
-    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    logoutRedux: () => dispatch(logout()),
   };
-  
-  export default withRouter(connect(mapStateToProps, mapDispatchToProps)(navbar));  
+};
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(navbar));

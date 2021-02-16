@@ -18,7 +18,6 @@ export default class rating extends Component {
                             return <img src={ b5 } alt="" />
                         })}
                     </div>
-                    <p className="text-muted rate-num" >({product_rating})</p>
                 </div>
             </div>
         )

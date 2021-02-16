@@ -1,14 +1,28 @@
 import * as actionTypes from "../actionTypes";
 
-export const addToCart = (itemId, image, price, productName, productBrand) => {
+export const addToCart = (itemId, image, price, name, brand) => {
   return {
     type: actionTypes.ADD_TO_CART,
     payload: {
       id: itemId,
       image: image,
       price: price,
-      productName: productName,
-      productBrand: productBrand,
+      name: name,
+      brand: brand,
+      pick: false,
+    },
+  };
+};
+
+export const addToCheckout = (itemId, image, price, name, brand) => {
+  return {
+    type: actionTypes.ADD_TO_CHECKOUT,
+    payload: {
+      id: itemId,
+      image: image,
+      price: price,
+      name: name,
+      brand: brand,
       pick: false,
     },
   };
@@ -53,5 +67,11 @@ export const removeFromCart = (itemId) => {
     payload: {
       id: itemId,
     },
+  };
+};
+
+export const clearCheckout = () => {
+  return {
+    type: actionTypes.CLEAR_CHECKOUT,
   };
 };

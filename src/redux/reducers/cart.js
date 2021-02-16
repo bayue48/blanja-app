@@ -22,6 +22,7 @@ const cartReducer = (state = INITIAL_STATE, action) => {
             )
           : [...state.cart, { ...item, qty: 1 }],
       };
+      
     case actionTypes.REMOVE_FROM_CART:
       return {
         ...state,
@@ -55,6 +56,24 @@ const cartReducer = (state = INITIAL_STATE, action) => {
             : item
         ),
       };
+    case actionTypes.CLEAR_CHECKOUT:
+      return {
+        ...state,
+        cart: []
+      };
+    
+      case actionTypes.ADD_TO_CHECKOUT:
+      return {
+        ...state,
+        cart: inCart
+          ? state.cart.map((item) =>
+              item.id === action.payload.id
+                ? { ...item, qty: item.qty + 1 }
+                : item
+            )
+          : [...state.cart, { ...item, qty: 1 }],
+      };
+
     default:
       return state;
   }

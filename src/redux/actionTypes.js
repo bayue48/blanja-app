@@ -2,11 +2,13 @@ export const LOGIN = "LOGIN";
 export const LOGOUT = "LOGOUT";
 
 export const ADD_TO_CART = "ADD_TO_CART";
+export const ADD_TO_CHECKOUT = "ADD_TO_CHECKOUT";
 export const REMOVE_FROM_CART = "REMOVE_FROM_CART";
 export const PICK_CART = "PICK_CART";
 export const CLEAR_CART = "CLEAR_CART";
 export const PLUS_QTY = "PLUS_QTY";
 export const MIN_QTY = "MIN_QTY";
+export const CLEAR_CHECKOUT = "CLEAR_CHECKOUT";
 
 export const SET_EMAIL = "SET_EMAIL";
 export const REMOVE_EMAIL = "REMOVE_EMAIL";

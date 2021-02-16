@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import Navbar from '../components/navbar'
-import Sidebar from '../components/sidebar'
-import List from '../components/list'
+import Navbar from '../../components/navbar'
+import Sidebar from '../../components/sidebar'
+import List from '../../components/account/list'
 import { Container } from 'react-bootstrap'
 
 export default class listProduct extends Component {

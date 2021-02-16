@@ -7,6 +7,8 @@ import five from "./5.png";
 import next from "./next.png";
 import prev from "./prev.png";
 import user from "./user.png";
+import zero from "./404.png";
+import blank from "./img404.png";
 
 // logo
 import logo from "./icons/LogoBig.png";
@@ -103,5 +105,7 @@ export {
   user,
   mail,
   bell,
-  avatar
+  avatar,
+  zero,
+  blank
 };

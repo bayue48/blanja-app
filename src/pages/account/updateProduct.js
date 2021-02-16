@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import Navbar from '../components/navbar'
-import Sidebar from '../components/sidebar'
-import EditProduct from '../components/editProduct'
+import Navbar from '../../components/navbar'
+import Sidebar from '../../components/sidebar'
+import EditProduct from '../../components/account/editProduct'
 import { Container } from 'react-bootstrap'
 
 
