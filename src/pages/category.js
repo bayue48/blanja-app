@@ -4,6 +4,7 @@ import Navbar from "../components/navbar";
 import axios from "axios";
 import { Card, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { blank } from "../assets";
 
 export default class category extends Component {
   state = {
@@ -69,8 +70,10 @@ export default class category extends Component {
                       >
                         <img
                           src={
-                            `${process.env.REACT_APP_API}` +
-                            product_img.split(",")[0]
+                            product_img.split(",")[0] !== undefined
+                              ? `${process.env.REACT_APP_API}` +
+                                product_img.split(",")[0]
+                              : blank
                           }
                           className="card-img-top"
                           style={{ maxHeight: "50%" }}

@@ -4,6 +4,7 @@ import Navbar from "../components/navbar";
 import axios from "axios";
 import { Card, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { blank } from "../assets";
 
 const base_url = process.env.REACT_APP_API;
 
@@ -32,7 +33,7 @@ const SearchPage = ({ history }) => {
     getAllProducts(history.location.search);
   }, [history.location.search]);
 
-  const { category } = history.location.search
+  const { category } = history.location.search;
 
   return (
     <>
@@ -73,8 +74,10 @@ const SearchPage = ({ history }) => {
                     >
                       <img
                         src={
-                          `${process.env.REACT_APP_API}` +
-                          product_img.split(",")[0]
+                          product_img.split(",")[0] !== undefined
+                            ? `${process.env.REACT_APP_API}` +
+                              product_img.split(",")[0]
+                            : blank
                         }
                         className="card-img-top"
                         style={{ maxHeight: "50%" }}
@@ -85,7 +88,7 @@ const SearchPage = ({ history }) => {
                         <Link
                           to={{
                             pathname: `/detail/${id}`,
-                            // state: this.state,
+                            product,
                           }}
                         >
                           <h5 className="card-title">{product_name}</h5>

@@ -350,8 +350,8 @@ const EditProduct = (props) => {
                         setCnd(e.target.value);
                       }}
                     >
-                      <option value={1}>New</option>
-                      <option value={2}>Second</option>
+                      <option value="New">New</option>
+                      <option value="Second">Second</option>
                     </select>
                   </div>
                 </div>

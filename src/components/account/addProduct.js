@@ -30,7 +30,7 @@ const AddProduct = () => {
   const [userId, setUserId] = useState(id);
   const [rate, setRate] = useState(0);
   const [ctg, setCtg] = useState(1);
-  const [cnd, setCnd] = useState(1);
+  const [cnd, setCnd] = useState("");
   const [prodBrand, setProdBrand] = useState("");
 
   console.log("size", size);
@@ -258,8 +258,8 @@ const AddProduct = () => {
                         setCnd(e.target.value);
                       }}
                     >
-                      <option value={1}>New</option>
-                      <option value={2}>Second</option>
+                      <option value="New">New</option>
+                      <option value="Second">Second</option>
                     </select>
                   </div>
                 </div>

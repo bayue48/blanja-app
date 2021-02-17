@@ -19,7 +19,7 @@ import {
   tie,
   watchs,
   next,
-} from "../../../src/assets";
+} from "../../assets";
 import "./carousel.css";
 
 export default class category extends Component {
