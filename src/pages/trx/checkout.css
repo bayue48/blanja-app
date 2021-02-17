@@ -1,30 +1,172 @@
+.Wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 30px;
+}
+
+.CheckoutWrapper {
+  display: flex;
+  flex-direction: row;
+  width: 720px;
+  height: 126px;
+  background: #f1f1f1;
+  box-shadow: 3px 10px 35px -5px rgba(184,184,184,1);
+  border-radius: 20px;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  margin-top: 15px;
+}
+
+.BagWrapper {
+  display: flex;
+  flex-direction: column;
+  margin-right: 5px;
+}
+
+.ProductImg {
+  width: 80px;
+  height: 69px;
+  margin-right: 5px;
+  border-radius: 15px;
+}
+
+.ProductInfo {
+  display: flex;
+  flex-direction: row;
+  margin-top: 8px;
+  margin-left: 5px;
+}
+
+.SummaryCard {
+  width: 370px;
+  height: 180px;
+  padding: 20px;
+  background: #f1f1f1;
+  border-radius: 15px;
+  margin-top: 15px;
+}
+
+.TotalPrice {
+  display: flex;
+  flex-direction: row;
+  padding-right: 10px;
+  justify-content: space-between;
+}
+
+.Divider {
+  border: 2px solid black;
+}
+
+.BuyBtn {
+  width: 330px;
+  height: 40px;
+  border-radius: 20px;
+  background: #DB3022;
+  border-color: #DB3022;
+  transition: all 0.5s;
+}
+
+.BuyBtn:hover {
+  background: #fa2b18;
+  border-color: #DB3022;
+}
+
+.BuyBtn:active {
+  background: #fa2b18;
+  border-color: #DB3022;
+}
+
+.PaymentList {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.PaymentWrapper {
+  display: flex;
+  flex-direction: row;
+}
+
+.FormCheck:checked {
+  background: #DB3022;
+  border-color: #DB3022;
+}
+
+.Payment {
+  width: 55px;
+  height: 45px;
+  border-radius: 10px;
+  background: white;
+}
+
+.PaymentLogo {
+  font-size: 28px;
+  color: rgb(59, 59, 245);
+  text-align: center;
+}
+
+.Checkbox {
+  font-size: 20px;
+}
+
 .ttl-addrs {
-    font-weight: 600;
-    font-size: 16px;
+  font-weight: 600;
+  font-size: 16px;
 }
 
 .address {
-    border: solid 1px;
-    width: 720px;
-    border-radius: 4px;
-    margin-top: 10px;
+  border: solid 1px;
+  width: 100%;
+  border-radius: 4px;
+  margin-top: 10px;
+  padding-top: 30px;
+  padding-bottom: 38px;
+}
+
+.alamat {
+  border: solid 1px;
+  width: 100%;
+  border-radius: 4px;
+  /* margin-top: 10px;
     padding-top: 30px;
-    padding-bottom: 38px;
+    padding-bottom: 38px; */
 }
 
 .btn-choose-address {
-    width: 210px;
-    height: 36px;
-    border-radius: 24px;
-    border: solid 1px #9B9B9B;
-    display: flex;
-    justify-content: center;
-    margin-top: 28px;
+  width: 210px;
+  height: 36px;
+  border-radius: 24px;
+  border: solid 1px #9b9b9b;
+  /* display: flex; */
+  justify-content: center;
+  margin-top: 28px;
 }
 
 .addres-btn {
-    font-weight: 500;
-    font-size: 14px;
-    color: #9B9B9B;
-    margin-top: 5px;
+  font-weight: 500;
+  font-size: 14px;
+  color: #9b9b9b;
+  margin-top: 5px;
+}
+
+
+@media screen and (max-width: 1024px) {
+  .Wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+  .BagWrapper {
+    width: 100%;
+  }
+  .SummaryCard {
+    width: 100%;
+    margin-top: 50px;
+  }
+  .BuyBtn {
+    width: 100%;
+  }
 }

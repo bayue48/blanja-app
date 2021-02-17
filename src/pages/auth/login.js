@@ -51,7 +51,7 @@ const Login = ({ login, isLogin }) => {
           <div
             onClick={() => setLevel(2)}
             className={
-              level === 2 ? "button button-full Link" : "button button-shadow"
+              level === 2 ? "button button-full Links" : "button button-shadow"
             }
           >
             Customer
@@ -59,7 +59,7 @@ const Login = ({ login, isLogin }) => {
           <div
             onClick={() => setLevel(1)}
             className={
-              level === 1 ? "button button-full Link" : "button button-shadow"
+              level === 1 ? "button button-full Links" : "button button-shadow"
             }
           >
             Seller

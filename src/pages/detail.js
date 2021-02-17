@@ -73,7 +73,7 @@ class detail extends Component {
                               product_brand,
                             );
                             console.log("brand", product_brand, IMG + product_img.split(",")[0])
-                            toast('Product Added to Bag', {
+                            toast.success('Product Added to Bag', {
                                 position: "top-right",
                                 autoClose: 2000,
                                 hideProgressBar: false,

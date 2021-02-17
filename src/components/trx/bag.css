@@ -40,12 +40,8 @@
     top: -30px;
     cursor: pointer;
   }
-  .form-check-input {
-    margin-left: -0.4rem;
-  }
 
   .FormCheck:checked {
-    margin-left: -0.4rem;
     background-color: #DB3022;
     border-color: #DB3022;
   }

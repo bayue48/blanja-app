@@ -102,8 +102,13 @@
     color: #222222;
   }
 
-  .Link {
+  .Links {
     color:#FFFFFF;
+    text-decoration: none;
+  }
+
+  .Link {
+    color:red;
     text-decoration: none;
   }
 

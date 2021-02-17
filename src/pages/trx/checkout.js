@@ -1,97 +1,57 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import Navbar from "../../components/navbar";
-// import Loader from "../assets/image/loader.gif";
-// import ModalChooseAddress from "../components/Modal/ModalAddress/ModalChooseAddress";
-// import ModalSelectPayment from "../components/Modal/ModalAddress/ModalSelectPayment";
-// import ModalAddAddress from "../components/Modal/ModalAddress/ModalAddAddress";
-import { Bounce, toast } from "react-toastify";
-import { useSelector, useDispatch } from "react-redux";
-// import { clearCart, clearCheckout, addToCheckout } from "../../redux/actions/cart";
+import { connect, useSelector, useDispatch } from "react-redux";
+// import { Link } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import axios from "axios";
+import Navbar from "../../components/navbar";
+import ModalChooseAddress from "../../components/Modal/ModalChooseAddress";
+// import ModalSelectPayment from "../../components/Modal/ModalSelectPayment";
+import ModalAddAddress from "../../components/Modal/ModalAddAddress";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import "./bag.css";
 import "./checkout.css";
+import colors from "../../utility/colors.module.css";
+import text from "../../utility/text.module.css";
+import classname from "../../utility/classJoiner";
+import "./modal.css";
+import { clearCart, clearCheckout } from "../../redux/actions/cart";
+
+import gopay from "../../assets/gopay.png";
+import pos from "../../assets/pos.png";
+import mastercard from "../../assets/master.png";
 
 const API = process.env.REACT_APP_API;
 
-const { clearCart, clearCheckout, addToCheckout } = ""
-
-const { ModalAddAddress, ModalChooseAddress, ModalSelectPayment} = ""
-
-toast.configure();
-const Checkout = (props) => {
+const Checkout = ({ location, cart, history }) => {
   const [showChooseAddress, setShowChooseAddress] = useState(false);
   const [showAddAddress, setShowAddAddress] = useState(false);
-  const [showPayment, setShowPayment] = useState(false);
+  const [payment, setPayment] = useState("");
+  // const [showPayment, setShowPayment] = useState(false);
   const [address, setAddress] = useState([]);
-  const [getFirstAddress, setGetFirstAddress] = useState([]);
-
+  // const [getFirstAddress, setGetFirstAddress] = useState([]);
 
   const dispatch = useDispatch();
-  const checkout = useSelector((state) => state.product.checkout);
-  const seller_id = useSelector((state) => state.product.checkout.seller_id);
-  const transaction_code = useSelector((state) => state.product.checkout.transaction_code);
-  const item = useSelector((state) => state.product.checkout.item);
+  const { data } = location;
+  const id = useSelector((state) => state.auth.id);
+  let token = useSelector((state) => state.auth.token);
 
-  const stateCarts = useSelector((state) => state.product.carts);
-  const token = useSelector((state) => state.auth.data.token);
-  const { getAddress } = props.location;
-  // const { changeAddres } = props.location;
-  console.log("CHECKOUT", checkout);
-
-  const transaction = () => {
-    axios
-      .post(`${API}/orders`, checkout, {
-        headers: {
-          "x-access-token": "Bearer " + token,
-        },
-      })
-      .then((res) => {
-        console.log("success", res);
-      })
-      .catch((err) => {
-        console.log("ERROR", err.response);
-      });
-    dispatch(clearCart());
-    dispatch(clearCheckout());
-    toast.success("Yeah! kamu berhasil belanja", {
-      position: "top-right",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      transition: Bounce,
-    });
-    setShowPayment(false);
-  };
+  console.log("toket", token);
 
   const getAddressUser = async () => {
     await axios
-      .get(`${API}/address`, {
+      .get(`${API}/address/${id}`, {
         headers: {
           "x-access-token": "Bearer " + token,
         },
       })
       .then((res) => {
         const addressNull = res.data.data;
-        const address = res.data.data[0];
+        const addressData = res.data.data[0];
 
         if (address === null) {
           setAddress(addressNull);
-          console.log("dalas28", addressNull);
         } else {
-          setAddress(address);
-          const id_address = res.data.data[0].id_address
-          const sendData = {
-            transaction_code: transaction_code,
-            seller_id: seller_id,
-            id_address: id_address,
-            item: item,
-          };
-          dispatch(addToCheckout({sendData}))
-          console.log("dalemmm", address);
+          setAddress(addressData);
         }
       })
       .catch((err) => {
@@ -100,128 +60,325 @@ const Checkout = (props) => {
   };
 
   useEffect(() => {
-    getAddressUser(address);
+    getAddressUser();
   }, []);
+
+  useEffect(() => {
+    const unsubscribe = window.addEventListener("focus", () => {
+      getAddressUser();
+    });
+    return unsubscribe;
+  }, [window]);
 
   console.log("address", address);
 
+  const postTransaction = () => {
+    const info = {
+      user_id: id,
+      qty: data !== undefined ? data[1] : null,
+      price: data !== undefined ? data[0] : null,
+      payment: payment,
+    };
+    axios
+      .post(`${API}/history/`, info)
+      .then((res) => {
+        console.log("Checkout info,", res);
+      })
+      .catch((err) => console.log(err));
+    dispatch(clearCart());
+    dispatch(clearCheckout());
+    toast.success("Checkout Success", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+    });
+  };
+
+  const submit = () => {
+    postTransaction();
+    history.push("/");
+  };
+
+  const toPrice = (x) => {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  };
+
   return (
-    <div>
+    <>
       <Navbar />
       <div className="container">
-        <h1
-          style={{ fontSize: "34px", fontWeight: "700", marginBottom: "15px" }}
-        >
-          Checkout
-        </h1>
-        {stateCarts.filter((item) => item.selected === true).length ? (
+        <h1 style={{ marginTop: "20px" }}>Checkout</h1>
+        <div className="Wrapper">
           <div className="row">
-            <div className="col-12 col-lg-8">
-              <p className="ttl-addrs">Shipping Address</p>
-              <div className="col address">
-                {address ? (
-                  <>
-                    <p>{address.fullname}</p>
-                    <p>
-                      {`${address.address}, Kota ${address.city}, Provinsi ${address.region}, Kodepos: ${address.zip_code}, ${address.country}`}
-                    </p>
-                  </>
-                ) : null}
-                <button
-                  className="btn-choose-address"
-                  onClick={() => setShowChooseAddress(true)}
-                >
-                  <p className="addres-btn">Choose another address</p>
-                </button>
-              </div>
-              {stateCarts
-                .filter((item) => item.selected === true)
-                .map((item) => {
-                  return (
-                    <div
-                      className="col prodct d-flex justify-content-between"
-                      key={item.id}
-                      style={{padding: "10px", marginBottom: "20px"}}
-                    >
-                      {/* <div className="selectAll" > */}
-                        <div className="col-2 img-chart">
-                          <img
-                            style={{ height: "70px" }}
-                            src={item.photo}
-                            alt=""
-                          />
-                        </div>
-                        <div className="col-7">
-                          <p className="name-prodct">{item.name}</p>
-                          <p className="brand-product text-muted">
-                            {item.brand}
-                          </p>
-                        </div>
-                        <div className="col-3">
-                          <p className="prc">{`Rp. ${(
-                            item.price * item.qty
-                          ).toLocaleString("id-ID")}`}</p>
-                        </div>
-                      {/* </div> */}
-                    </div>
-                  );
-                })}
-            </div>
-            <div className="col-12 col-lg-4" >
-              <div className="shop-sumry">
-                <p className="smry-title">Shopping summary</p>
-                <div className="ttl-price">
-                  <p className="text-price text-muted">Total price</p>
-                  <p className="pay">{`Rp${stateCarts
-                    .filter((item) => item.selected === true)
-                    .reduce((total, item) => {
-                      return total + item.price * item.qty;
-                    }, 0)
-                    .toLocaleString("id-ID")}`}</p>
-                </div>
-                <div style={{width: "100%", borderStyle: "solid", border: "2px", marginBottom: "2px", marginTop: "2px"}}></div>
-                <div className="text-decoration-none">
+            <p className="ttl-addrs">Shipping Address</p>
+            {address ? (
+              <>
+                <div className="col-11 address">
+                  <p>{address.name}</p>
+                  <p>
+                    {`${address.address_name}, Jalan ${address.street}, Kota ${address.city}, Kodepos: ${address.zip}`}
+                  </p>
                   <button
-                    className="btn-buy"
-                    onClick={() => setShowPayment(true)}
+                    className="btn-choose-address"
+                    onClick={() => setShowChooseAddress(true)}
+                    style={{ display: "flex" }}
                   >
-                    <p className="text-buy">Select payment</p>
+                    <p className="addres-btn">Choose another address</p>
                   </button>
                 </div>
-              </div>
+              </>
+            ) : (
+              <>
+                <div
+                  className="col address"
+                  // style={{ justifyContent: "center" }}
+                >
+                  <button
+                    className="btn-choose-address"
+                    onClick={() => setShowAddAddress(true)}
+                    style={{
+                      justifyContent: "center",
+                      width: "100%",
+                    }}
+                  >
+                    <p
+                      className="addres-btn"
+                      style={{ color: "black", height: "10px" }}
+                    >
+                      Add new Address
+                    </p>
+                  </button>
+                </div>
+              </>
+            )}
+            <div className="BagWrapper">
+              {cart.map((item) => {
+                return (
+                  <div className="CheckoutWrapper">
+                    <div className="ProductInfo">
+                      <img
+                        className="ProductImg"
+                        src={item.image}
+                        alt="sample"
+                      />
+                      <div style={{ display: "flex", flexDirection: "column" }}>
+                        <p style={{ fontSize: "16px", fontWeight: "bold" }}>
+                          {item.name}
+                        </p>
+                        <p
+                          style={{
+                            fontSize: "12px",
+                            fontWeight: "500",
+                            color: "#9B9B9B",
+                          }}
+                        >
+                          {item.brand}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="TotalPrice">
+                      <p
+                        style={{
+                          fontSize: "16px",
+                          fontWeight: "600",
+                          color: "#222222",
+                        }}
+                      >
+                        Rp {toPrice(item.price)}
+                      </p>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           </div>
-        ) : (
-          <h1
-          // className={classname(
-          //   text.headline,
-          //   colors.grayText,
-          //   "text-empty-cart"
-          // )}
-          >
-            (Checkout item is empty)
-          </h1>
-        )}
+          <div className="SummaryCard">
+            <p style={{ fontSize: "16px", fontWeight: "600" }}>
+              Shopping Summary
+            </p>
+            <div className="TotalPrice">
+              <p>Order</p>
+              <p>Rp. {data !== undefined ? toPrice(data[0]) : null}</p>
+            </div>
+            <button
+              data-toggle="modal"
+              data-backdrop="false"
+              data-target=".checkout-modal"
+              type="button"
+              className="btn btn-danger BuyBtn"
+              data-toggle="modal"
+              data-target="#paymentModal"
+            >
+              Select Payment
+            </button>
+          </div>
+        </div>
       </div>
+
       <ModalChooseAddress
         show={showChooseAddress}
         onHide={() => setShowChooseAddress(false)}
         showAddAddress={() => setShowAddAddress(true)}
       />
-      <ModalSelectPayment
+      {/* <ModalSelectPayment
         show={showPayment}
         onHide={() => setShowPayment(false)}
         showAddAddress={() => setShowAddAddress(true)}
-        cart={stateCarts.filter((item) => item.selected === true)}
-        onSubmit={() => transaction()}
+        cart={cart.filter((item) => item.selected === true)}
+        onSubmit={() => submit()}
         // handleSelectPayment={(evt) => handleSelectPayment(evt)}
-      />
+      /> */}
       <ModalAddAddress
         show={showAddAddress}
         onHide={() => setShowAddAddress(false)}
       />
-    </div>
+
+      {/* <!-- Modal --> */}
+      <div
+        class="modal fade"
+        id="paymentModal"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title text-top" id="exampleModalLabel">
+                Modal title
+              </h5>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body no-border modal-body-container">
+              <div className="container-modal">
+                <div className="row container-item-payment">
+                  <h4
+                    className={classname(colors.blackText, "text-title-head")}
+                  >
+                    Payment Method
+                  </h4>
+                </div>
+                <div className="row align-items-center container-item-payment">
+                  <img src={gopay} alt="" />
+                  <h4 className="text-item-payment">Gopay</h4>
+                  <input
+                    type="radio"
+                    name="payment"
+                    id="gopay"
+                    value="gopay"
+                    //   onChange={props.handleSelectPayment}
+                    className="ml-auto"
+                    onClick={() => setPayment("Gopay")}
+                  />
+                </div>
+                <div className="row align-items-center container-item-payment">
+                  <img src={pos} alt="" />
+                  <h4 className="text-item-payment">Pos Indonesia</h4>
+                  <input
+                    type="radio"
+                    name="payment"
+                    id="pos"
+                    value="pos"
+                    //   onChange={props.handleSelectPayment}
+                    className="ml-auto"
+                    onClick={() => setPayment("POS")}
+                  />
+                </div>
+                <div className="row align-items-center container-item-payment">
+                  <img src={mastercard} alt="" />
+                  <h4 className="text-item-payment">Mastercard</h4>
+                  <input
+                    type="radio"
+                    name="payment"
+                    id="mastercard"
+                    //   onChange={props.handleSelectPayment}
+                    value="mastercard"
+                    className="ml-auto"
+                    onClick={() => setPayment("Mastercard")}
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="modal-body no-border">
+              <div className="container-modal">
+                <div className="row container-item-payment">
+                  <h4
+                    className={classname(colors.blackText, "text-title-head")}
+                  >
+                    Shopping summary
+                  </h4>
+                </div>
+                <div className="row align-items-center container-item-summary">
+                  <h4 className={classname(colors.grayText, text.text)}>
+                    Order
+                  </h4>
+                  <h3 className="ml-auto text-price">
+                    Rp. {data !== undefined ? toPrice(data[0]) : null}
+                  </h3>
+                </div>
+                <div className="row align-items-center container-item-summary">
+                  <h4 className={classname(colors.grayText, text.text)}>
+                    Delivery
+                  </h4>
+                  <h3 className="ml-auto text-price">Rp5.000</h3>
+                </div>
+              </div>
+            </div>
+            <div class="modal-body shadow-lg">
+              <div className="container-modal-footer">
+                <div className="row">
+                  <div className="col">
+                    <h4
+                      className={classname(colors.blackText, "text-title-head")}
+                    >
+                      Shopping summary
+                    </h4>
+                    <h3 className={classname(colors.primaryText, "text-price")}>
+                      Rp. {data !== undefined ? toPrice(data[0]) : null}
+                    </h3>
+                  </div>
+                  <div className="col-5 align-self-center">
+                    <button className="btn btn-danger btn-bu" onClick={submit}>
+                      Buy
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {/* <div class="modal-footer ">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-dismiss="modal"
+              >
+                Close
+              </button>
+              <button type="button" class="btn btn-primary">
+                Save changes
+              </button>
+            </div> */}
+          </div>
+        </div>
+      </div>
+    </>
   );
 };
 
-export default Checkout;
+const mapStateToProps = (state) => {
+  return {
+    cart: state.cart.cart,
+  };
+};
+
+export default withRouter(connect(mapStateToProps)(Checkout));

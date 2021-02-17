@@ -200,6 +200,7 @@ class navbar extends Component {
                   className="btn filter-btn"
                   data-toggle="modal"
                   data-target="#FilterModal"
+                  data-backdrop="false"
                 >
                   <Image src={filter} alt="Filter" />
                 </div>
