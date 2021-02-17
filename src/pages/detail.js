@@ -9,6 +9,7 @@ import { connect } from "react-redux";
 import { addToCart } from "../redux/actions/cart";
 
 const IMG = process.env.REACT_APP_API
+toast.configure();
 
 class detail extends Component {
     state = {

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { connect, useSelector, useDispatch } from "react-redux";
-// import { Link } from "react-router-dom";
+// import { Redirect } from "react-router-dom";
 import { withRouter } from "react-router-dom";
 import axios from "axios";
 import Navbar from "../../components/navbar";
@@ -21,6 +21,7 @@ import pos from "../../assets/pos.png";
 import mastercard from "../../assets/master.png";
 
 const API = process.env.REACT_APP_API;
+toast.configure();
 
 const Checkout = ({ location, cart, history }) => {
   const [showChooseAddress, setShowChooseAddress] = useState(false);
@@ -29,6 +30,8 @@ const Checkout = ({ location, cart, history }) => {
   // const [showPayment, setShowPayment] = useState(false);
   const [address, setAddress] = useState([]);
   // const [getFirstAddress, setGetFirstAddress] = useState([]);
+
+  const ongkir = 15000;
 
   const dispatch = useDispatch();
   const { data } = location;
@@ -89,10 +92,10 @@ const Checkout = ({ location, cart, history }) => {
     dispatch(clearCheckout());
     toast.success("Checkout Success", {
       position: "top-right",
-      autoClose: 5000,
+      autoClose: 2000,
       hideProgressBar: false,
       closeOnClick: true,
-      pauseOnHover: true,
+      pauseOnHover: false,
       draggable: true,
     });
   };
@@ -114,7 +117,7 @@ const Checkout = ({ location, cart, history }) => {
         <div className="Wrapper">
           <div className="row">
             <p className="ttl-addrs">Shipping Address</p>
-            {address ? (
+            {address.name !== undefined ? (
               <>
                 <div className="col-11 address">
                   <p>{address.name}</p>
@@ -133,7 +136,7 @@ const Checkout = ({ location, cart, history }) => {
             ) : (
               <>
                 <div
-                  className="col address"
+                  className="col-12 address"
                   // style={{ justifyContent: "center" }}
                 >
                   <button
@@ -324,14 +327,14 @@ const Checkout = ({ location, cart, history }) => {
                     Order
                   </h4>
                   <h3 className="ml-auto text-price">
-                    Rp. {data !== undefined ? toPrice(data[0]) : null}
+                    Rp. {data !== undefined ? toPrice(data[0]+ ongkir) : null}
                   </h3>
                 </div>
                 <div className="row align-items-center container-item-summary">
                   <h4 className={classname(colors.grayText, text.text)}>
                     Delivery
                   </h4>
-                  <h3 className="ml-auto text-price">Rp5.000</h3>
+                  <h3 className="ml-auto text-price">Rp {ongkir}</h3>
                 </div>
               </div>
             </div>
@@ -345,7 +348,7 @@ const Checkout = ({ location, cart, history }) => {
                       Shopping summary
                     </h4>
                     <h3 className={classname(colors.primaryText, "text-price")}>
-                      Rp. {data !== undefined ? toPrice(data[0]) : null}
+                      Rp. {data !== undefined ? toPrice(data[0]+ ongkir) : null}
                     </h3>
                   </div>
                   <div className="col-5 align-self-center">
