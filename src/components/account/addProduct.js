@@ -31,6 +31,7 @@ const AddProduct = () => {
   const [rate, setRate] = useState(0);
   const [ctg, setCtg] = useState(1);
   const [cnd, setCnd] = useState(1);
+  const [prodBrand, setProdBrand] = useState("");
 
   console.log("size", size);
   console.log("color", color);
@@ -43,6 +44,7 @@ const AddProduct = () => {
   console.log("rate", rate);
   console.log("category", ctg);
   console.log("condition", cnd);
+  console.log("brand", prodBrand);
 
   const token = useSelector((state) => state.auth.token);
 
@@ -58,6 +60,7 @@ const AddProduct = () => {
     data.append("product_name", prodName);
     data.append("product_category", ctg);
     data.append("product_size", size);
+    data.append("product_brand", prodBrand);
     data.append("product_color", color);
     data.append("product_condition", cnd);
     data.append("product_price", prodPrice);
@@ -160,6 +163,16 @@ const AddProduct = () => {
                       type="number"
                       onChange={(e) => {
                         setProdQty(e.target.value);
+                      }}
+                    />
+                  </Form.Group>
+                  <Form.Group controlId="product_brand">
+                    <Form.Label>Brand</Form.Label>
+                    <Form.Control
+                      placeholder="Product Brand"
+                      value={prodBrand}
+                      onChange={(e) => {
+                        setProdBrand(e.target.value);
                       }}
                     />
                   </Form.Group>
