@@ -41,8 +41,8 @@ export default function Router() {
             {/* <Route path='/update/:id' component={Update} /> */}
             <ProtectedRoute path="/checkout" exact component={Checkout} />
             <ProtectedRoute path="/account" component={Profile} />
-            <ProtectedRoute path="/account/product" exact component={List} />
-            <ProtectedRoute path="/account/product/new" exact component={AddProduct} />
+            <ProtectedRoute path="/product" exact component={List} />
+            <ProtectedRoute path="/add" exact component={AddProduct} />
             {/* <ProtectedRoute path="/account/product/edit/:id" component={EditProduct} /> */}
             {/* <ProtectedRoute path="/account/update" component={Update} /> */}
             {/* <ProtectedRoute path="/account/order" component={GetOrder} /> */}

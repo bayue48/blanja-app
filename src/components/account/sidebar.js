@@ -1,7 +1,7 @@
 import React from "react";
 import { Dropdown } from "react-bootstrap";
 import { connect, useSelector } from "react-redux";
-import { Link, useHistory, Redirect } from 'react-router-dom'
+import { Link } from "react-router-dom";
 import {
   account,
   address,
@@ -15,8 +15,6 @@ import {
 import "./sidebar.css";
 
 const Sidebar = (props) => {
-  const history = useHistory();
-
   const name = useSelector((state) => state.auth.name);
 
   return (
@@ -69,13 +67,12 @@ const Sidebar = (props) => {
                   id="dropdown-split-basic"
                 />
                 <Dropdown.Menu>
-                  <Dropdown.Item
-                    onClick={() => history.push("/account/product")}
-                  >
-                    My Product
+                  <Dropdown.Item>
+                    <Link to="/product">My Product</Link>
                   </Dropdown.Item>
-                  <Dropdown.Item onClick={() => history.push("/account/product/new")}>
-                    Sellng Products
+
+                  <Dropdown.Item>
+                    <Link to="/add">Sellng Products</Link>
                   </Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
