@@ -96,13 +96,12 @@ const List = (props) => {
                       product_desc,
                       product_price,
                       product_qty,
-                      product_category,
+                      category_name,
                       product_img,
-                      product_size,
-                      product_color,
+                      sizes_name,
+                      color_name,
                       product_condition,
                       product_rating,
-                      user_id,
                     }) => {
                       return (
                         <>
@@ -129,15 +128,14 @@ const List = (props) => {
                                   product_name,
                                   product_brand,
                                   product_desc,
-                                  product_category,
+                                  category_name,
                                   product_price,
                                   product_qty,
                                   product_img,
-                                  product_size,
-                                  product_color,
+                                  sizes_name,
+                                  color_name,
                                   product_condition,
                                   product_rating,
-                                  user_id,
                                 }}
                               >
                                 <button className="btn btn-primary">

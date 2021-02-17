@@ -45,6 +45,7 @@ const AddProduct = () => {
   console.log("category", ctg);
   console.log("condition", cnd);
   console.log("brand", prodBrand);
+  console.log("uid", userId);
 
   const token = useSelector((state) => state.auth.token);
 
@@ -72,8 +73,8 @@ const AddProduct = () => {
       data.append("product_img", filePath[i]);
     }
     for (var pair of data.entries()) {
-      console.log(pair[0] + ', ' + pair[1]);
-  }
+      console.log(pair[0] + ", " + pair[1]);
+    }
 
     await axios
       .post(API + "/products", data, {
@@ -92,9 +93,10 @@ const AddProduct = () => {
           draggable: true,
         });
         setAddP(true);
+        console.log("sukses", res);
       })
       .catch((err) => {
-        console.log("bisa error", err.response);
+        console.log("error", err.response);
       });
   };
 
@@ -124,9 +126,7 @@ const AddProduct = () => {
               <div className="row">
                 <div className="col-md-8">
                   <Form.Group controlId="product_name">
-                    <Form.Label>
-                      Name of goods
-                    </Form.Label>
+                    <Form.Label>Name of goods</Form.Label>
                     <Form.Control
                       placeholder="Product Name"
                       value={prodName}

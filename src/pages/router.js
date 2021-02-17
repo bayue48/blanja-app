@@ -19,6 +19,7 @@ import List from "./account/listProduct";
 import Profile from "./account/profile";
 import NotFound from "./404";
 import AddProduct from "../components/account/AddProduct";
+import EditProduct from "../components/account/EditProduct";
 
 export default function Router() {
   return (
@@ -43,7 +44,7 @@ export default function Router() {
             <ProtectedRoute path="/account" component={Profile} />
             <ProtectedRoute path="/product" exact component={List} />
             <ProtectedRoute path="/add" exact component={AddProduct} />
-            {/* <ProtectedRoute path="/account/product/edit/:id" component={EditProduct} /> */}
+            <ProtectedRoute path="/edit/:id" component={EditProduct} />
             {/* <ProtectedRoute path="/account/update" component={Update} /> */}
             {/* <ProtectedRoute path="/account/order" component={GetOrder} /> */}
             {/* <ProtectedRoute path="/account/password/change" component={ChangePassword} /> */}

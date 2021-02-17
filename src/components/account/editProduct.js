@@ -2,201 +2,102 @@ import React, { useState, useEffect } from "react";
 import { Jumbotron, Form } from "react-bootstrap";
 import axios from "axios";
 import { useSelector } from "react-redux";
-import Sidebar from "../SidebarProfile/Sidebar";
-import Navbar from "../Navbar";
-import formattext from "../../assets/image/formattext.png";
-import main from "../../assets/image/mainphoto.png";
-import secondary from "../../assets/image/secondaryphoto.png";
+import Sidebar from "./sidebar";
+import Navbar from "../navbar";
+import formattext from "../../assets/formattext.png";
+import main from "../../assets/mainphoto.png";
+import secondary from "../../assets/secondaryphoto.png";
 import styles from "./styling.module.css";
 import "./add.css";
 import "react-toastify/dist/ReactToastify.css";
-import { Bounce, toast } from "react-toastify";
-import { Redirect } from 'react-router-dom';
-import { API } from "../../utility/Auth";
+import { toast } from "react-toastify";
+import { Redirect } from "react-router-dom";
+
+const API = process.env.REACT_APP_API;
 
 toast.configure();
 const EditProduct = (props) => {
-  const [addP, setAddP] = useState(false)
+  const uid = useSelector((state) => state.auth.id);
+
+  const [addP, setAddP] = useState(false);
   const {
     id,
     product_name,
+    product_brand,
     product_desc,
     product_price,
-    category_name,
     product_qty,
-    product_photo,
-    sizes,
-    colors,
+    product_img,
+    category_name,
+    sizes_name,
+    color_name,
+    product_condition,
+    product_rating,
   } = props.location;
 
-  useEffect(() => {
-    getCategory();
-    getSize();
-    getColor();
-    getCondition();
-    getStatus();
-  }, []);
-
-  const addOrRemoveSelected = (id) => {
-    const result = size.find((s) => s.id === id);
-    if (result.is_selected) {
-      const temp = size;
-      const index = temp.findIndex((e) => e.id === id);
-      temp[index]["is_selected"] = false;
-      setSize([...temp]);
-    } else {
-      const temp = size;
-      const index = temp.findIndex((e) => e.id === id);
-      temp[index]["is_selected"] = true;
-      setSize([...temp]);
-    }
-  };
-
-  const addOrRemoveColorSelected = (id) => {
-    const result = color.find((c) => c.id === id);
-    if (result.is_selected) {
-      const temp = color;
-      const index = temp.findIndex((e) => e.id === id);
-      temp[index]["is_selected"] = false;
-      setColor([...temp]);
-    } else {
-      const temp = color;
-      const index = temp.findIndex((e) => e.id === id);
-      temp[index]["is_selected"] = true;
-      setColor([...temp]);
-    }
-  };
-
-  const restructureIsSelected = (data) => {
-    const temp = data.map((data) => {
-      data["is_selected"] = false;
-      return data;
-    });
-    return temp;
-  };
-
-  const photo = JSON.parse(product_photo);
-  console.log("edit", photo);
-  const [filePath, setFilePath] = useState(photo);
+  const photo = product_img;
+  console.log("ini photo", photo);
+  const [filePath, setFilePath] = useState([]);
+  const [image, setImage] = useState([]);
   console.log("FILEPATH", filePath);
+  console.log("Image", image);
   const [prodName, setProdName] = useState(product_name);
-  const [categories, setCategories] = useState([]);
-  const [size, setSize] = useState([]);
-  const [color, setColor] = useState([]);
-  const [condition, setCondition] = useState([]);
+  const [size, setSize] = useState(1);
+  const [color, setColor] = useState(1);
   const [prodPrice, setProdPrice] = useState(product_price);
   const [prodQty, setProdQty] = useState(product_qty);
   const [prodDesc, setProdDesc] = useState(product_desc);
-  const [status, setStatus] = useState([]);
-  const [ctg, setCtg] = useState(0);
-  const [cnd, setCnd] = useState(1);
-  const [sts, setSts] = useState(3);
+  const [userId, setUserId] = useState(uid);
+  const [rate, setRate] = useState(product_rating);
+  const [ctg, setCtg] = useState(1);
+  const [cnd, setCnd] = useState(product_condition);
+  const [prodBrand, setProdBrand] = useState(product_brand);
 
-  console.log("Size Luar", size);
-  console.log("color Luar", color);
+  console.log("size", size);
+  console.log("color", color);
+  console.log("image", filePath);
+  console.log("name", prodName);
+  console.log("price", prodPrice);
+  console.log("qty", prodQty);
+  console.log("desc", prodDesc);
+  console.log("uid", userId);
+  console.log("rate", rate);
+  console.log("category", ctg);
+  console.log("condition", cnd);
+  console.log("brand", prodBrand);
+  console.log("uid", userId);
 
-  const token = useSelector((state) => state.auth.data.token);
-
-  const formatDataSizeToSend = (dataSize) => {
-    const selectedSizes = [];
-    dataSize.forEach((s) => {
-      if (s.is_selected) {
-        selectedSizes.push(s.id);
-      }
-    });
-    return selectedSizes;
-  };
-
-  const formatDataColorToSend = (dataColor) => {
-    const selectedColors = [];
-    console.log("SELECT", selectedColors);
-    dataColor.forEach((c) => {
-      if (c.is_selected) {
-        selectedColors.push(c.id);
-      }
-    });
-    return selectedColors;
-  };
-
-  const getCategory = async () => {
-    await axios
-      .get(API + "/categories")
-      .then((res) => {
-        const categories = res.data.data;
-        setCategories(categories);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
-  const getSize = async () => {
-    await axios
-      .get(API + "/sizes")
-      .then((res) => {
-        const size = res.data.data;
-        setSize(restructureIsSelected(size));
-        console.log("SIZE", size);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
-  const getColor = async () => {
-    await axios
-      .get(API + "/colors")
-      .then((res) => {
-        const color = res.data.data;
-        setColor(restructureIsSelected(color));
-        console.log("color", restructureIsSelected(color));
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
-  const getCondition = async () => {
-    await axios
-      .get(API + "/condition")
-      .then((res) => {
-        const condition = res.data.data;
-        console.log("kondisi", condition);
-        setCondition(condition);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
-  const getStatus = async () => {
-    await axios
-      .get(API + "/status")
-      .then((res) => {
-        const status = res.data.data;
-        console.log("status", status);
-        setStatus(status);
-      })
-      .catch((err) => {
-        console.log("error status", err);
-      });
-  };
+  const token = useSelector((state) => state.auth.token);
 
   const inputRef = React.useRef();
+  const inputImage = React.useRef();
+
   const handleFile = (e) => {
     e.preventDefault();
     inputRef.current.click();
+  };
+
+  const handleUpload = (e) => {
+    e.preventDefault();
+    inputImage.current.click();
+  };
+
+  const handleImage = (e) => {
+    e.preventDefault();
   };
 
   const handleSubmitPhoto = async (e) => {
     e.preventDefault();
     const data = new FormData();
     for (let i = 0; i < filePath.length; i++) {
-      data.append("image", filePath[i]);
+      data.append("product_img", filePath[i]);
+    }
+    for (var pair of data.entries()) {
+      console.log(pair[0] + ", " + pair[1]);
     }
 
     await axios
-      .put(`${API}/products/photo/${id}`, data, {
+      .patch(`${API}/products/img/${id}`, data, {
         headers: {
           "x-access-token": "Bearer " + token,
           "Content-Type": "multipart/form-data",
@@ -210,51 +111,81 @@ const EditProduct = (props) => {
       });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmitImage = async (e) => {
     e.preventDefault();
     const data = new FormData();
-    data.append("product_name", prodName);
-    data.append("category_id", ctg);
-    formatDataSizeToSend(size).map((element) => {
-      data.append("sizes[]", JSON.stringify(element));
-    });
-    formatDataColorToSend(color).map((element) => {
-      data.append("colors[]", JSON.stringify(element));
-    });
-    data.append("condition_id", cnd);
-    data.append("product_price", prodPrice);
-    data.append("product_qty", prodQty);
-    data.append("product_desc", prodDesc);
-
-    data.append("status_product_id", sts);
+    for (let i = 0; i < image.length; i++) {
+      data.append("product_img", image[i]);
+    }
+    for (var pair of data.entries()) {
+      console.log(pair[0] + ", " + pair[1]);
+    }
 
     await axios
-      .put(API + "/products/" + id, data, {
+      .patch(`${API}/products/img/${id}`, data, {
         headers: {
           "x-access-token": "Bearer " + token,
           "Content-Type": "multipart/form-data",
         },
       })
       .then((res) => {
-        toast.success("Yeah! Berhasil update product", {
+        toast.success("Success Update Image", {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
           closeOnClick: true,
-          pauseOnHover: true,
+          pauseOnHover: false,
           draggable: true,
-          transition: Bounce,
         });
-        setAddP(true)
-        console.log("ini berhasil update", res);
+        setAddP(true);
+        console.log("sukses image", res);
       })
       .catch((err) => {
-        console.log("bisa error", err.response);
+        console.log("err", err);
       });
   };
 
-  if(addP === true) {
-    return <Redirect to="/myproduct" />
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const data = new FormData();
+    data.append("product_name", prodName);
+    data.append("product_category", ctg);
+    data.append("product_size", size);
+    data.append("product_brand", prodBrand);
+    data.append("product_color", color);
+    data.append("product_condition", cnd);
+    data.append("product_price", prodPrice);
+    data.append("product_qty", prodQty);
+    data.append("product_rating", rate);
+    data.append("user_id", userId);
+    data.append("product_desc", prodDesc);
+
+    await axios
+      .patch(API + "/products/" + id, data, {
+        headers: {
+          "x-access-token": "Bearer " + token,
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((res) => {
+        toast.success("Success Edit Product", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+        });
+        setAddP(true);
+        console.log("sukses", res);
+      })
+      .catch((err) => {
+        console.log("error", err.response);
+      });
+  };
+
+  if (addP === true) {
+    return <Redirect to="/account/product" />;
   }
 
   return (
@@ -271,6 +202,14 @@ const EditProduct = (props) => {
             name="image"
             className={styles.hiddeninput}
           />
+          <input
+            multiple
+            type="file"
+            onChange={(e) => setImage(e.target.files)}
+            ref={inputImage}
+            name="image"
+            className={styles.hiddeninput}
+          />
           <Form>
             <Jumbotron className="container-content">
               <h3>Inventory</h3>
@@ -279,9 +218,7 @@ const EditProduct = (props) => {
               <div className="row">
                 <div className="col-md-8">
                   <Form.Group controlId="product_name">
-                    <Form.Label className="font-p-title">
-                      Name of goods
-                    </Form.Label>
+                    <Form.Label>Name of goods</Form.Label>
                     <Form.Control
                       placeholder={product_name}
                       value={prodName}
@@ -300,9 +237,10 @@ const EditProduct = (props) => {
               <div className="row">
                 <div className="col-md-8">
                   <Form.Group controlId="product_price">
-                    <Form.Label className="font-p-title">Unit Price</Form.Label>
+                    <Form.Label>Unit Price</Form.Label>
                     <Form.Control
                       placeholder={product_price}
+                      type="number"
                       value={prodPrice}
                       onChange={(e) => {
                         setProdPrice(e.target.value);
@@ -310,17 +248,28 @@ const EditProduct = (props) => {
                     />
                   </Form.Group>
                   <Form.Group controlId="product_stock">
-                    <Form.Label className="font-p-title">Stock</Form.Label>
+                    <Form.Label>Stock</Form.Label>
                     <Form.Control
                       placeholder={product_qty}
                       value={prodQty}
+                      type="number"
                       onChange={(e) => {
                         setProdQty(e.target.value);
                       }}
                     />
                   </Form.Group>
+                  <Form.Group controlId="product_brand">
+                    <Form.Label>Brand</Form.Label>
+                    <Form.Control
+                      placeholder={product_brand}
+                      value={prodBrand}
+                      onChange={(e) => {
+                        setProdBrand(e.target.value);
+                      }}
+                    />
+                  </Form.Group>
                   <div className="form-group">
-                    <label>Category </label>
+                    <label>Category</label>
                     <br></br>
                     <select
                       className="form-control col-6"
@@ -329,89 +278,67 @@ const EditProduct = (props) => {
                         setCtg(e.target.value);
                       }}
                     >
-                      {categories &&
-                        categories.map(({ id_categories, category_name }) => {
-                          return (
-                            <>
-                              <option value={id_categories}>
-                                {category_name}
-                              </option>
-                            </>
-                          );
-                        })}
+                      <option value={1}>T-Shirt</option>
+                      <option value={2}>Shorts</option>
+                      <option value={3}>Jacket</option>
+                      <option value={4}>Pants</option>
+                      <option value={5}>Shoes</option>
+                      <option value={6}>High heels</option>
+                      <option value={7}>Wristwatch</option>
+                      <option value={8}>Handbag</option>
+                      <option value={9}>Bagpack</option>
+                      <option value={10}>Socks</option>
+                      <option value={11}>Glasses</option>
+                      <option value={12}>Cap</option>
+                      <option value={13}>Tie</option>
+                      <option value={14}>Dress</option>
+                      <option value={15}>Formal suit</option>
+                      <option value={16}>Accessories</option>
                     </select>
                   </div>
 
-                  <Form.Group className="form-group">
-                    <Form.Label>Colors </Form.Label>
+                  <div className="form-group">
+                    <label>Color</label>
                     <br></br>
-                    <Form.Control
+                    <select
                       className="form-control col-6"
-                      multiple
-                      as="select"
                       value={color}
+                      onChange={(e) => {
+                        setColor(e.target.value);
+                      }}
                     >
-                      {color &&
-                        color.map(
-                          ({ id, color_name, is_selected, color_hexa }) => {
-                            return (
-                              <>
-                                <option
-                                  style={
-                                    is_selected === true
-                                      ? {
-                                          backgroundColor: color_hexa,
-                                          color: "white",
-                                        }
-                                      : { backgroundColor: "white" }
-                                  }
-                                  className="mb-1"
-                                  key={id.toString()}
-                                  value={id}
-                                  onClick={() => {
-                                    addOrRemoveColorSelected(id);
-                                  }}
-                                >
-                                  {color_name}
-                                </option>
-                              </>
-                            );
-                          }
-                        )}
-                    </Form.Control>
-                  </Form.Group>
+                      <option value={1}>Black</option>
+                      <option value={2}>White</option>
+                      <option value={3}>Red</option>
+                      <option value={4}>Green</option>
+                      <option value={5}>Blue</option>
+                    </select>
+                  </div>
 
-                  <Form.Group className="form-group">
-                    <Form.Label>Size </Form.Label>
+                  <div className="form-group">
+                    <label>Size</label>
                     <br></br>
-                    <Form.Control
+                    <select
                       className="form-control col-6"
-                      multiple
-                      as="select"
                       value={size}
+                      onChange={(e) => {
+                        setSize(e.target.value);
+                      }}
                     >
-                      {size &&
-                        size.map(({ id, size, is_selected }) => {
-                          return (
-                            <option
-                              style={
-                                is_selected === true
-                                  ? { backgroundColor: "red", color: "white" }
-                                  : { backgroundColor: "white" }
-                              }
-                              className="mb-1"
-                              key={id.toString()}
-                              value={id}
-                              onClick={() => {
-                                addOrRemoveSelected(id);
-                              }}
-                            >
-                              {size}
-                            </option>
-                          );
-                        })}
-                    </Form.Control>
-                  </Form.Group>
+                      <option value={1}>XS</option>
+                      <option value={2}>S</option>
+                      <option value={3}>M</option>
+                      <option value={4}>L</option>
+                      <option value={5}>XL</option>
+                      <option value={6}>38</option>
+                      <option value={7}>39</option>
+                      <option value={8}>40</option>
+                      <option value={9}>41</option>
+                      <option value={10}>42</option>
+                      <option value={11}>43</option>
+                      <option value={12}>44</option>
+                    </select>
+                  </div>
 
                   <div className="form-group">
                     <label>Conditions Product </label>
@@ -423,35 +350,8 @@ const EditProduct = (props) => {
                         setCnd(e.target.value);
                       }}
                     >
-                      {condition &&
-                        condition.map(({ id, conditions }) => {
-                          return (
-                            <>
-                              <option value={id}>{conditions}</option>
-                            </>
-                          );
-                        })}
-                    </select>
-                  </div>
-
-                  <div className="form-group">
-                    <label>Status Product </label>
-                    <br></br>
-                    <select
-                      className="form-control col-6"
-                      value={sts}
-                      onChange={(e) => {
-                        setSts(e.target.value);
-                      }}
-                    >
-                      {status &&
-                        status.map(({ id, name }) => {
-                          return (
-                            <>
-                              <option value={id}>{name}</option>
-                            </>
-                          );
-                        })}
+                      <option value={1}>New</option>
+                      <option value={2}>Second</option>
                     </select>
                   </div>
                 </div>
@@ -467,9 +367,9 @@ const EditProduct = (props) => {
                         <img
                           className={styles.mainImg}
                           src={
-                            filePath[0] !== photo[0]
+                            filePath[0]
                               ? URL.createObjectURL(filePath[0])
-                              : photo[0]
+                              : main
                           }
                           alt=""
                         />
@@ -480,9 +380,9 @@ const EditProduct = (props) => {
                       <img
                         className={styles.secondaryImg}
                         src={
-                          filePath[1] !== photo[1]
+                          filePath[1]
                             ? URL.createObjectURL(filePath[1])
-                            : photo[1]
+                            : secondary
                         }
                         alt=""
                       />
@@ -491,9 +391,9 @@ const EditProduct = (props) => {
                       <img
                         className={styles.secondaryImg}
                         src={
-                          filePath[2] !== photo[2]
+                          filePath[2]
                             ? URL.createObjectURL(filePath[2])
-                            : photo[2]
+                            : secondary
                         }
                         alt=""
                       />
@@ -502,9 +402,9 @@ const EditProduct = (props) => {
                       <img
                         className={styles.secondaryImg}
                         src={
-                          filePath[3] !== photo[3]
+                          filePath[3]
                             ? URL.createObjectURL(filePath[3])
-                            : photo[3]
+                            : secondary
                         }
                         alt=""
                       />
@@ -513,17 +413,32 @@ const EditProduct = (props) => {
                       <img
                         className={styles.secondaryImg}
                         src={
-                          filePath[4] !== photo[4]
+                          filePath[4]
                             ? URL.createObjectURL(filePath[4])
-                            : photo[4]
+                            : secondary
+                          // filePath[4] !== photo.split(",")[4]
+                          //   ? URL.createObjectURL(filePath[4])
+                          //   : `${process.env.REACT_APP_API}` + photo.split(",")[4]
                         }
                         alt=""
                       />
                     </div>
                   </div>
-                  <div className={styles.edit_img}>
-                    <button onClick={handleFile} className={styles.btnupload}>
+                  <div
+                    className={styles.edit_img}
+                    style={{ justifyContent: "space-around" }}
+                  >
+                    <button className={styles.btnupload} onClick={handleFile}>
                       Upload image
+                    </button>
+                    <button
+                      className={styles.btnupload}
+                      data-toggle="modal"
+                      data-target=".bd-example-modal-lg"
+                      data-backdrop="false"
+                      onClick={handleImage}
+                    >
+                      Update Image Only
                     </button>
                   </div>
                 </div>
@@ -555,7 +470,7 @@ const EditProduct = (props) => {
             </Jumbotron>
             <div className="container-btn d-flex justify-content-end mb-5">
               <button
-                className="btn-login-nav save"
+                className="btn btn-danger"
                 onClick={(e) => {
                   handleSubmit(e);
                   handleSubmitPhoto(e);
@@ -565,6 +480,119 @@ const EditProduct = (props) => {
               </button>
             </div>
           </Form>
+        </div>
+      </div>
+
+      <div
+        class="modal fade bd-example-modal-lg"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="myLargeModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <Jumbotron className="container-gap">
+              <h3>Photo of goods</h3>
+              <div className={styles.formcontainer}>
+                <div className={(styles.form, styles.formcontainer_img)}>
+                  <div className={styles.content_img}>
+                    <div className={styles.main_img}>
+                      <div className={styles.containerMainImg}>
+                        <img
+                          className={styles.mainImg}
+                          src={
+                            image[0]
+                              ? URL.createObjectURL(image[0])
+                              : main
+                          }
+                          alt=""
+                        />
+                      </div>
+                      <p className={styles.mainPhoto}>Foto utama</p>
+                    </div>
+                    <div className={styles.secondary_img}>
+                      <img
+                        className={styles.secondaryImg}
+                        src={
+                          image[1]
+                            ? URL.createObjectURL(image[1])
+                            : secondary
+                        }
+                        alt=""
+                      />
+                    </div>
+                    <div className={styles.secondary_img}>
+                      <img
+                        className={styles.secondaryImg}
+                        src={
+                          image[2]
+                            ? URL.createObjectURL(image[2])
+                            : secondary
+                        }
+                        alt=""
+                      />
+                    </div>
+                    <div className={styles.secondary_img}>
+                      <img
+                        className={styles.secondaryImg}
+                        src={
+                          image[3]
+                            ? URL.createObjectURL(image[3])
+                            : secondary
+                        }
+                        alt=""
+                      />
+                    </div>
+                    <div className={styles.secondary_img}>
+                      <img
+                        className={styles.secondaryImg}
+                        src={
+                          image[4]
+                            ? URL.createObjectURL(image[4])
+                            : secondary
+                          // filePath[4] !== photo.split(",")[4]
+                          //   ? URL.createObjectURL(filePath[4])
+                          //   : `${process.env.REACT_APP_API}` + photo.split(",")[4]
+                        }
+                        alt=""
+                      />
+                    </div>
+                  </div>
+                  <div className={styles.edit_img}>
+                    <button
+                      onClick={handleUpload}
+                      target="_blank"
+                      className={styles.btnupload}
+                      data-toggle="modal"
+                      data-target=".bd-example-modal-lg"
+                    >
+                      Upload image
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </Jumbotron>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-dismiss="modal"
+              >
+                Close
+              </button>
+              <button
+                type="button"
+                class="btn btn-danger"
+                onClick={(e) => {
+                  // handleSubmit(e);
+                  handleSubmitImage(e);
+                }}
+              >
+                Update Photo
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </>
