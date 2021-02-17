@@ -1,7 +1,7 @@
 import React from "react";
 import { Dropdown } from "react-bootstrap";
-import { connect } from "react-redux";
-import { Link, useHistory } from "react-router-dom";
+import { connect, useSelector } from "react-redux";
+import { Link, useHistory, Redirect } from 'react-router-dom'
 import {
   account,
   address,
@@ -17,6 +17,8 @@ import "./sidebar.css";
 const Sidebar = (props) => {
   const history = useHistory();
 
+  const name = useSelector((state) => state.auth.name);
+
   return (
     <div className="container-sidebar">
       <div className="content-sidebar">
@@ -25,7 +27,7 @@ const Sidebar = (props) => {
             <img className="img-profil" src={user} alt="" />
           </div>
           <div className="ml-4">
-            <p>{localStorage.getItem("username")}</p>
+            <p>{name}</p>
             <div className="d-flex margin-up">
               <div className="mr-1">
                 <Link>
@@ -68,11 +70,11 @@ const Sidebar = (props) => {
                 />
                 <Dropdown.Menu>
                   <Dropdown.Item
-                    onClick={() => history.push("/profile/myproduct")}
+                    onClick={() => history.push("/account/product")}
                   >
                     My Product
                   </Dropdown.Item>
-                  <Dropdown.Item href="/profile/myproduct">
+                  <Dropdown.Item onClick={() => history.push("/account/product/new")}>
                     Sellng Products
                   </Dropdown.Item>
                 </Dropdown.Menu>

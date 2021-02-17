@@ -102,7 +102,7 @@ const Checkout = ({ location, cart, history }) => {
 
   const submit = () => {
     postTransaction();
-    history.push("/");
+    history.push("/cart");
   };
 
   const toPrice = (x) => {

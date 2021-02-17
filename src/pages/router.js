@@ -16,9 +16,9 @@ import Reset from "./auth/reset";
 import Confirm from "./auth/confirm";
 import Search from "./search";
 import List from "./account/listProduct";
-import Update from "./account/updateProduct";
-import New from "./account/newProduct";
 import Profile from "./account/profile";
+import NotFound from "./404";
+import AddProduct from "../components/account/AddProduct";
 
 export default function Router() {
   return (
@@ -41,13 +41,14 @@ export default function Router() {
             {/* <Route path='/update/:id' component={Update} /> */}
             <ProtectedRoute path="/checkout" exact component={Checkout} />
             <ProtectedRoute path="/account" component={Profile} />
-            {/* <ProtectedRoute path="/account/product/new" component={AddProduct} />
-            <ProtectedRoute path="/account/product/edit/:id" component={EditProduct} />
-            <ProtectedRoute path="/account/update" component={Update} />
-            <ProtectedRoute path="/account/product" component={GetProduct} />
-            <ProtectedRoute path="/account/order" component={GetOrder} />
-            <ProtectedRoute path="/account/password/change" component={ChangePassword} />
-            <ProtectedRoute path="/account/address" component={ShippingAddress} /> */}
+            <ProtectedRoute path="/account/product" exact component={List} />
+            <ProtectedRoute path="/account/product/new" exact component={AddProduct} />
+            {/* <ProtectedRoute path="/account/product/edit/:id" component={EditProduct} /> */}
+            {/* <ProtectedRoute path="/account/update" component={Update} /> */}
+            {/* <ProtectedRoute path="/account/order" component={GetOrder} /> */}
+            {/* <ProtectedRoute path="/account/password/change" component={ChangePassword} /> */}
+            {/* <ProtectedRoute path="/account/address" component={ShippingAddress} /> */}
+            <Route path='*' component={NotFound} />
           </Switch>
         </BrowserRouter>
       </PersistGate>

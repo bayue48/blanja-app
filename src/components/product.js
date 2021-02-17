@@ -10,12 +10,12 @@ export default class product extends Component {
     console.log(this.props);
     this.state = {
       sizes: 0,
-      qty: 0,
+      quantity: 0,
     };
   }
 
   handleClickQty = () => {
-    this.setState((prevState) => ({ sizes: prevState.sizes + 1 }));
+    this.setState((prevState) => ({ size: prevState.size + 1 }));
   };
 
   handleClickPlus = () => {
@@ -24,7 +24,7 @@ export default class product extends Component {
 
   handleClickQtyMin = () => {
     this.setState((prevState) => ({
-      sizes: Math.max(prevState.sizes - 1, 0),
+      size: Math.max(prevState.size - 1, 0),
     }));
   };
 
@@ -205,7 +205,7 @@ export default class product extends Component {
                 >
                   <Link
                     className="text-decoration-none"
-                    onClick={() => this.setState({ qty: this.state.qty - 1 })}
+                    onClick={() => this.setState({ quantity: this.state.quantity - 1 })}
                   >
                     <div
                       className="btn-c"
@@ -214,10 +214,10 @@ export default class product extends Component {
                       -
                     </div>
                   </Link>
-                  <p>{this.state.qty}</p>
+                  <p>{this.state.quantity}</p>
                   <Link
                     className="text-decoration-none"
-                    onClick={() => this.setState({ qty: this.state.qty + 1 })}
+                    onClick={() => this.setState({ quantity: this.state.quantity + 1 })}
                   >
                     <div
                       className="btn-c"

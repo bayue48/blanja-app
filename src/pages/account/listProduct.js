@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Navbar from '../../components/navbar'
-import Sidebar from '../../components/sidebar'
+import Sidebar from '../../components/account/sidebar'
 import List from '../../components/account/list'
 import { Container } from 'react-bootstrap'
 

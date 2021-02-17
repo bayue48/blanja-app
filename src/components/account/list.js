@@ -8,7 +8,7 @@ export default class list extends Component {
 
 
     getAllProduct = () => {
-        axios.get(`http://localhost:8000/api/v2/products`)
+        axios.get(`http://localhost:8000/products`)
             .then(({ data }) => {
                 this.setState({
                     dataupdate: data.data

@@ -4,8 +4,6 @@ import { Link } from 'react-router-dom'
 import Rating from './rating';
 import axios from 'axios'
 
-// const getUrl = 'http://localhost:8000/api/v2/products/';
-
 export default class productFooter extends Component {
     state = {
         products: {},

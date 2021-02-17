@@ -1,0 +1,49 @@
+.container-selling {
+  margin-left: 30%;
+  width: 70%;
+  margin-top: -46px;
+  background-color: #9b9b9b;
+}
+.content {
+  margin-left: 30px;
+  margin-top: 50px;
+  width: 85.8%;
+  background-color: #ffffff !important;
+}
+
+.test {
+  background-color: #ffffff;
+  /* margin-left: -60; */
+}
+
+h3 {
+  font-size: 20px;
+}
+.font-p-title {
+  font-size: 14px;
+  /* color: #9b9b9b; */
+}
+
+.save{
+  width: 100px;
+  height: 36px;
+  background-color: #ff0000 !important;
+  color: #ffffff !important;
+  border-radius: 10px;
+}
+
+.editProd{
+  width: 70px;
+  height: 36px;
+  background-color: #00ff00 !important;
+  color: #ffffff !important;
+  border-radius: 10px;
+}
+
+.deleteProd{
+  width: 70px;
+  height: 36px;
+  background-color: #ff0000 !important;
+  color: #ffffff !important;
+  border-radius: 10px;
+}
