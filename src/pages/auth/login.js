@@ -6,7 +6,10 @@ import { Container, Form, Image } from "react-bootstrap";
 import { logos } from "../../../src/assets";
 import axios from "axios";
 import "./auth.css";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
+toast.configure();
 const Login = ({ login, isLogin }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -15,6 +18,7 @@ const Login = ({ login, isLogin }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setErrorMsg("Please wait");
     const data = {
       email: email,
       password: password,
@@ -28,11 +32,20 @@ const Login = ({ login, isLogin }) => {
         const level = res.data.data.level;
         const name = res.data.data.name;
         const email = res.data.data.email;
-        login(token, id, level, name, email);
+        const img = res.data.data.img;
+        login(token, id, level, name, email, img);
+        toast.success("Login Success", {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+        });
       })
       .catch((err) => {
         console.log(err.message);
-        setErrorMsg("*Invalid email or password");
+        setErrorMsg("Invalid email or password");
       });
   };
 
@@ -65,9 +78,9 @@ const Login = ({ login, isLogin }) => {
             Seller
           </div>
         </div>
-
+  
         <Form className="form-section" autoComplete="off">
-          <p className="ErrorMsg">{errorMsg}</p>
+        <p style={{ color: "red" }}>{errorMsg}</p>
           <div className="form-main">
             <input
               type="email"
@@ -88,7 +101,7 @@ const Login = ({ login, isLogin }) => {
           </div>
         </Form>
         <p className="forgot">
-          <Link className="Link" to={{ pathname: "/reset" }}>
+          <Link className="Link" to={{ pathname: "/forgot" }}>
             Forgot Password?
           </Link>
         </p>
@@ -114,45 +127,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    login: (token, id, level, name, email) =>
-      dispatch(login(token, id, level, name, email)),
+    login: (token, id, level, name, email, img) =>
+      dispatch(login(token, id, level, name, email, img)),
   };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
-
-//             <Container className="auth">
-//                 {auth.isLogin && <Redirect to="/" />}
-//                 <div className="form-header">
-//                     <div className="img-container">
-//                         <Image src={logos} alt="Logo" />
-//                     </div>
-//                     <p className="info">Please login with your account</p>
-//                     <div className="button-group">
-//                         <a href=" " className="button button-full">Customer</a>
-//                         <a href=" " className="button button-shadow">Seller</a>
-//                     </div>
-//                     <Form className="form-section" autoComplete="off">
-//                         <div className="form-main">
-//                             <input type="email" placeholder="Email" name="email" required onChange={(e) => (this.email = e.target.value)} />
-//                         </div>
-//                         <div className="form-main">
-//                             <input type="password" placeholder="Password" name="psw" required onChange={(e) => (this.password = e.target.value)} />
-//                         </div>
-//                     </Form>
-//                     <a className="forgot" href="reset">Forgot password?</a><br></br>
-//                     <a className="submit" type="submit" onClick={this.handleSubmit}>LOGIN</a>
-//                     <p className="register">Don't have a Tokopedia account? <a href="signup">Register</a></p>
-//                 </div>
-//             </Container>
-//         )
-//     }
-// }
-
-// const mapStateToProps = ({ auth }) => {
-//     return {
-//         auth,
-//     };
-// };
-
-// export default connect(mapStateToProps)(Login);

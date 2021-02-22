@@ -43,15 +43,9 @@ const Sidebar = (props) => {
                 <img alt="" src={home} />
               </div>
               <Dropdown className="d-flex">
-                <p className="mr-2">Store</p>
-                <Dropdown.Toggle
-                  split
-                  variant="light"
-                  id="dropdown-split-basic"
-                />
-                <Dropdown.Menu>
-                  <Dropdown.Item href="#/action-1">Store Profile</Dropdown.Item>
-                </Dropdown.Menu>
+                <Link to="/account">
+                  <p className="mr-2">Store</p>
+                </Link>
               </Dropdown>
             </div>
 
@@ -78,7 +72,7 @@ const Sidebar = (props) => {
               </Dropdown>
             </div>
 
-            <div className="d-flex justify-content-between mt-3">
+            {/* <div className="d-flex justify-content-between mt-3">
               <div className="icon" style={{ backgroundColor: "#F3456F" }}>
                 <img alt="" src={bag} />
               </div>
@@ -94,7 +88,7 @@ const Sidebar = (props) => {
                   <Dropdown.Item href="#/action-1">Order Cancel </Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
-            </div>
+            </div> */}
           </div>
         ) : (
           <div className="mt-5 ml-5 btnside">
@@ -103,7 +97,7 @@ const Sidebar = (props) => {
                 <img alt="" src={account} />
               </div>
               <Dropdown className="d-flex">
-                <Link>
+                <Link to="/account">
                   <p className="mr-2 text-dark">My Account</p>
                 </Link>
               </Dropdown>
@@ -114,7 +108,7 @@ const Sidebar = (props) => {
                 <img alt="" src={address} />
               </div>
               <Dropdown className="d-flex">
-                <Link>
+                <Link to="/address">
                   <p className="mr-2 text-dark">Shipping Address</p>
                 </Link>
               </Dropdown>
@@ -125,13 +119,24 @@ const Sidebar = (props) => {
                 <img alt="" src={order} />
               </div>
               <Dropdown className="d-flex">
-                <Link>
+                <Link to="/order">
                   <p className="mr-2 text-dark">My Order</p>
                 </Link>
               </Dropdown>
             </div>
           </div>
         )}
+        <div className="container-btn d-flex justify-content-center mb-5">
+          <Link to="/change">
+            <button
+              className="btn btn-danger"
+              style={{ width: "170px" }}
+              // onClick={(e) => handleSubmit(e)}
+            >
+              Change Password
+            </button>
+          </Link>
+        </div>
       </div>
     </div>
   );

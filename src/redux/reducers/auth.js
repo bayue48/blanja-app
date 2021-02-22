@@ -7,6 +7,7 @@ const INITIAL_STATE = {
   level: null,
   name: null,
   email: null,
+  img: null
 };
 
 const authReducer = (state = INITIAL_STATE, action) => {
@@ -20,6 +21,7 @@ const authReducer = (state = INITIAL_STATE, action) => {
         level: action.payload.level,
         name: action.payload.name,
         email: action.payload.email,
+        img: action.payload.img
       };
     case actionTypes.LOGOUT:
       return {
@@ -29,7 +31,8 @@ const authReducer = (state = INITIAL_STATE, action) => {
         id: null,
         level: null,
         name: null,
-        email: null
+        email: null,
+        img: null
       };
     case actionTypes.SET_EMAIL:
       return {

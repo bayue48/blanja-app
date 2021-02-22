@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Jumbotron, Form } from "react-bootstrap";
 import axios from "axios";
 import { useSelector } from "react-redux";
@@ -38,9 +38,7 @@ const EditProduct = (props) => {
   const photo = product_img;
   console.log("ini photo", photo);
   const [filePath, setFilePath] = useState([]);
-  const [image, setImage] = useState([]);
   console.log("FILEPATH", filePath);
-  console.log("Image", image);
   const [prodName, setProdName] = useState(product_name);
   const [size, setSize] = useState(1);
   const [color, setColor] = useState(1);
@@ -70,80 +68,36 @@ const EditProduct = (props) => {
   const token = useSelector((state) => state.auth.token);
 
   const inputRef = React.useRef();
-  const inputImage = React.useRef();
 
   const handleFile = (e) => {
     e.preventDefault();
     inputRef.current.click();
   };
 
-  const handleUpload = (e) => {
-    e.preventDefault();
-    inputImage.current.click();
-  };
+  // const handleSubmitPhoto = async (e) => {
+  //   e.preventDefault();
+  //   const data = new FormData();
+  //   for (let i = 0; i < filePath.length; i++) {
+  //     data.append("product_img", filePath[i]);
+  //   }
+  //   for (var pair of data.entries()) {
+  //     console.log(pair[0] + ", " + pair[1]);
+  //   }
 
-  const handleImage = (e) => {
-    e.preventDefault();
-  };
-
-  const handleSubmitPhoto = async (e) => {
-    e.preventDefault();
-    const data = new FormData();
-    for (let i = 0; i < filePath.length; i++) {
-      data.append("product_img", filePath[i]);
-    }
-    for (var pair of data.entries()) {
-      console.log(pair[0] + ", " + pair[1]);
-    }
-
-    await axios
-      .patch(`${API}/products/img/${id}`, data, {
-        headers: {
-          "x-access-token": "Bearer " + token,
-          "Content-Type": "multipart/form-data",
-        },
-      })
-      .then((res) => {
-        console.log("image", res);
-      })
-      .catch((err) => {
-        console.log("err", err);
-      });
-  };
-
-  const handleSubmitImage = async (e) => {
-    e.preventDefault();
-    const data = new FormData();
-    for (let i = 0; i < image.length; i++) {
-      data.append("product_img", image[i]);
-    }
-    for (var pair of data.entries()) {
-      console.log(pair[0] + ", " + pair[1]);
-    }
-
-    await axios
-      .patch(`${API}/products/img/${id}`, data, {
-        headers: {
-          "x-access-token": "Bearer " + token,
-          "Content-Type": "multipart/form-data",
-        },
-      })
-      .then((res) => {
-        toast.success("Success Update Image", {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: false,
-          draggable: true,
-        });
-        setAddP(true);
-        console.log("sukses image", res);
-      })
-      .catch((err) => {
-        console.log("err", err);
-      });
-  };
+  //   await axios
+  //     .patch(`${API}/products/img/${id}`, data, {
+  //       headers: {
+  //         "x-access-token": "Bearer " + token,
+  //         "Content-Type": "multipart/form-data",
+  //       },
+  //     })
+  //     .then((res) => {
+  //       console.log("image", res);
+  //     })
+  //     .catch((err) => {
+  //       console.log("err", err);
+  //     });
+  // };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -159,6 +113,12 @@ const EditProduct = (props) => {
     data.append("product_rating", rate);
     data.append("user_id", userId);
     data.append("product_desc", prodDesc);
+    for (let i = 0; i < filePath.length; i++) {
+      data.append("product_img", filePath[i]);
+    }
+    for (var pair of data.entries()) {
+      console.log(pair[0] + ", " + pair[1]);
+    }
 
     await axios
       .patch(API + "/products/" + id, data, {
@@ -185,7 +145,7 @@ const EditProduct = (props) => {
   };
 
   if (addP === true) {
-    return <Redirect to="/account/product" />;
+    return <Redirect to="/product" />;
   }
 
   return (
@@ -199,14 +159,6 @@ const EditProduct = (props) => {
             type="file"
             onChange={(e) => setFilePath(e.target.files)}
             ref={inputRef}
-            name="image"
-            className={styles.hiddeninput}
-          />
-          <input
-            multiple
-            type="file"
-            onChange={(e) => setImage(e.target.files)}
-            ref={inputImage}
             name="image"
             className={styles.hiddeninput}
           />
@@ -431,15 +383,6 @@ const EditProduct = (props) => {
                     <button className={styles.btnupload} onClick={handleFile}>
                       Upload image
                     </button>
-                    <button
-                      className={styles.btnupload}
-                      data-toggle="modal"
-                      data-target=".bd-example-modal-lg"
-                      data-backdrop="false"
-                      onClick={handleImage}
-                    >
-                      Update Image Only
-                    </button>
                   </div>
                 </div>
               </div>
@@ -473,7 +416,7 @@ const EditProduct = (props) => {
                 className="btn btn-danger"
                 onClick={(e) => {
                   handleSubmit(e);
-                  handleSubmitPhoto(e);
+                  // handleSubmitPhoto(e);
                 }}
               >
                 Save
@@ -482,120 +425,6 @@ const EditProduct = (props) => {
           </Form>
         </div>
       </div>
-
-      <div
-        class="modal fade bd-example-modal-lg"
-        tabindex="-1"
-        role="dialog"
-        aria-labelledby="myLargeModalLabel"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content">
-            <Jumbotron className="container-gap">
-              <h3>Photo of goods</h3>
-              <div className={styles.formcontainer}>
-                <div className={(styles.form, styles.formcontainer_img)}>
-                  <div className={styles.content_img}>
-                    <div className={styles.main_img}>
-                      <div className={styles.containerMainImg}>
-                        <img
-                          className={styles.mainImg}
-                          src={
-                            image[0]
-                              ? URL.createObjectURL(image[0])
-                              : main
-                          }
-                          alt=""
-                        />
-                      </div>
-                      <p className={styles.mainPhoto}>Foto utama</p>
-                    </div>
-                    <div className={styles.secondary_img}>
-                      <img
-                        className={styles.secondaryImg}
-                        src={
-                          image[1]
-                            ? URL.createObjectURL(image[1])
-                            : secondary
-                        }
-                        alt=""
-                      />
-                    </div>
-                    <div className={styles.secondary_img}>
-                      <img
-                        className={styles.secondaryImg}
-                        src={
-                          image[2]
-                            ? URL.createObjectURL(image[2])
-                            : secondary
-                        }
-                        alt=""
-                      />
-                    </div>
-                    <div className={styles.secondary_img}>
-                      <img
-                        className={styles.secondaryImg}
-                        src={
-                          image[3]
-                            ? URL.createObjectURL(image[3])
-                            : secondary
-                        }
-                        alt=""
-                      />
-                    </div>
-                    <div className={styles.secondary_img}>
-                      <img
-                        className={styles.secondaryImg}
-                        src={
-                          image[4]
-                            ? URL.createObjectURL(image[4])
-                            : secondary
-                          // filePath[4] !== photo.split(",")[4]
-                          //   ? URL.createObjectURL(filePath[4])
-                          //   : `${process.env.REACT_APP_API}` + photo.split(",")[4]
-                        }
-                        alt=""
-                      />
-                    </div>
-                  </div>
-                  <div className={styles.edit_img}>
-                    <button
-                      onClick={handleUpload}
-                      target="_blank"
-                      className={styles.btnupload}
-                      data-toggle="modal"
-                      data-target=".bd-example-modal-lg"
-                    >
-                      Upload image
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </Jumbotron>
-            <div class="modal-footer">
-              <button
-                type="button"
-                class="btn btn-secondary"
-                data-dismiss="modal"
-              >
-                Close
-              </button>
-              <button
-                type="button"
-                class="btn btn-danger"
-                onClick={(e) => {
-                  // handleSubmit(e);
-                  handleSubmitImage(e);
-                }}
-              >
-                Update Photo
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-      {/* sementara */}
     </>
   );
 };

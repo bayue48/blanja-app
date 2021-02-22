@@ -107,6 +107,7 @@ export default function ModalAddAddress(props) {
               </label>
               <input
                 id="tlp"
+                type="number"
                 className={styles.input}
                 onChange={(e) => {
                   setAddress({ ...myaddress, phone: e.target.value });

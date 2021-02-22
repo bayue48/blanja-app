@@ -8,8 +8,8 @@
   border-radius: 30px;
 }
 .img-profil{
-  width: 90px;
-  object-position: -50%  50%;
+  width: 60px;
+  object-position: center;
 }
 .margin-up{
   margin-top: -8px;

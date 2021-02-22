@@ -233,7 +233,7 @@ export default class product extends Component {
               </div>
             </div>
             <Row className="mt-3">
-              <Link className="chat text-decoration-none d-flex">Chat</Link>
+              <Link to="/chat" className="chat text-decoration-none d-flex">Chat</Link>
               <Link
                 className="add-bag text-decoration-none d-flex"
                 onClick={addToCart}

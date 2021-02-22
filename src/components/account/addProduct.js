@@ -101,7 +101,7 @@ const AddProduct = () => {
   };
 
   if (addP === true) {
-    return <Redirect to="/account/product" />;
+    return <Redirect to="/product" />;
   }
 
   return (

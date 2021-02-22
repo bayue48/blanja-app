@@ -10,11 +10,21 @@ import axios from "axios";
 const API = process.env.REACT_APP_API;
 
 const ModalChooseAddress = (props) => {
-  const [changeAddress, setChangeAddress] = useState([]);
+  const [address, setAddress] = useState([]);
   // const [idAddress, setIdAddress] = useState([]);
 
   const id = useSelector((state) => state.auth.id);
   let token = useSelector((state) => state.auth.token);
+
+  useEffect(() => {
+    window.addEventListener("mousemove", () => {
+      getAddressUser(address);
+    });
+    const unsubscribe = window.removeEventListener("mousemove", () => {
+      getAddressUser(address);
+    });
+    return unsubscribe;
+  }, []);
 
   const getAddressUser = async () => {
     await axios
@@ -25,16 +35,27 @@ const ModalChooseAddress = (props) => {
       })
       .then((res) => {
         const address = res.data.data;
-        setChangeAddress(address);
+        setAddress(address);
       })
       .catch((err) => {
         console.log(err);
       });
   };
 
-  useEffect(() => {
-    getAddressUser();
-  }, []);
+  // useEffect(() => {
+  //   const unsubscribe = window.addEventListener("focus", () => {
+  //     getAddressUser(address);
+  //   });
+  //   return unsubscribe;
+  // }, []);
+
+  // useEffect(() => {
+  //   getAddressUser(address);
+  // }, [])
+
+  // useEffect(() => {
+  //   getAddressUser();
+  // }, []);
 
   return (
     <Modal
@@ -58,10 +79,10 @@ const ModalChooseAddress = (props) => {
               Add new address
             </h4>
           </div>
-          {changeAddress &&
-            changeAddress.map(
+          {address &&
+            address.map(
               ({
-                id_address,
+                id,
                 name,
                 address_name,
                 street,
@@ -69,8 +90,9 @@ const ModalChooseAddress = (props) => {
                 zip,
                 phone,
               }) => {
+                console.log("id adresds", id)
                 return (
-                  <div className="container-address-list" style={{marginBottom: "10px"}} key={id_address}>
+                  <div className="container-address-list" style={{marginBottom: "10px"}} id={id} key={id}>
                     <p className={classname(text.text, "text-title")}>
                       {address_name}
                     </p>

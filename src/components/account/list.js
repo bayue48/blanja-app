@@ -3,10 +3,12 @@ import axios from "axios";
 import Sidebar from "../../components/account/sidebar";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { Redirect, Link } from "react-router-dom";
 
 const API = process.env.REACT_APP_API;
 
+toast.configure();
 const List = (props) => {
   const [addP, setAddP] = useState(false);
   console.log("props product", props);

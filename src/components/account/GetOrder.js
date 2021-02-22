@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { Jumbotron } from "react-bootstrap";
 import { useSelector } from "react-redux";
-import Sidebar from "../SidebarProfile/Sidebar";
-import Navbar from "../Navbar";
+import Navbar from "../navbar";
+import Sidebar from "../account/sidebar";
 import axios from "axios";
-import NotFound from "../../assets/image/ordernot.png";
-const getUrl = process.env.REACT_APP_URL;
+import NotFound from "../../assets/noOrders.png";
+import css from "./Order.module.css";
 
 const GetOrder = () => {
   const [order, setOrder] = useState([]);
-  const token = useSelector((state) => state.auth.data.token);
+  const token = useSelector((state) => state.auth.token);
+  const userId = useSelector((state) => state.auth.id);
+
   const getOrder = () => {
     axios
-      .get(`${getUrl}/orders`, {
+      .get(`${process.env.REACT_APP_API}/history/${userId}`, {
         headers: {
           "x-access-token": "Bearer " + token,
         },
@@ -25,6 +27,10 @@ const GetOrder = () => {
       .catch((err) => {
         console.log("ini error", err.response);
       });
+  };
+
+  const toPrice = (x) => {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
   };
 
   useEffect(() => {
@@ -53,51 +59,25 @@ const GetOrder = () => {
               </div>
             ) : (
               <div className="container">
-                <div className="d-flex">
-                  <table class="table">
-                    <thead>
-                      <tr>
-                        <th scope="col">Transaction Code</th>
-                        <th scope="col">Status Order</th>
-                        <th scope="col">Address</th>
-                        <th scope="col">Total Price</th>
-                        <th scope="col">Product Name</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {order.map(
-                        ({
-                          id,
-                          transaction_code,
-                          total,
-                          status_order,
-                          address,
-                          order_detail,
-                        }) => {
-                          return (
-                            <>
-                              <tr>
-                                <td>{transaction_code}</td>
-                                <td>{status_order}</td>
-                                <td>{address}</td>
-                                <td>Rp. {total}</td>
-
-                                {order_detail.map(
-                                  ({ category_name, product_name }) => {
-                                    return (
-                                      <>
-                                        <td>{product_name}</td>
-                                      </>
-                                    );
-                                  }
-                                )}
-                              </tr>
-                            </>
-                          );
-                        }
-                      )}
-                    </tbody>
-                  </table>
+                <div className="d-flex flex-column">
+                  {order
+                    ? order &&
+                      order.map((order) => (
+                        <div className={css.CardWrapper} key={order.id}>
+                          <div className={css.OrderHead}>
+                            <h5>Order {order.invoice_id.slice(4)}</h5>
+                            <p>{order.updated}</p>
+                          </div>
+                          <p>Tracking number: {order.invoice_id}</p>
+                          <p>Quantity: {order.qty}</p>
+                          <p>Payment method: {order.payment}</p>
+                          <div className={css.OrderFooter}>
+                            <p>Total Price: Rp. {toPrice(order.price)}</p>
+                            <p>{order.status_name}</p>
+                          </div>
+                        </div>
+                      ))
+                    : null}
                 </div>
               </div>
             )}

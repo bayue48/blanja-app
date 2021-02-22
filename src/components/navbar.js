@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { logo, filter, cart, mail, bell, avatar } from "../../src/assets";
-import { Link, withRouter } from "react-router-dom";
+import { Link, withRouter, Redirect } from "react-router-dom";
 import axios from "axios";
 import { connect } from "react-redux";
 import { logout } from "../redux/actions/auth";
@@ -77,7 +77,7 @@ class navbar extends Component {
                 <img src={bell} alt="" />
               </button>
             </Link>
-            <Link to="/mail">
+            <Link to="/chat">
               <button className="btn btn-default mr-2">
                 <img src={mail} alt="" />
               </button>
@@ -92,13 +92,10 @@ class navbar extends Component {
               className="btn btn-light"
               data-toggle="modal"
               data-target=".bd-example-modal-sm"
+              data-backdrop="false"
+              style={{ color: "grey", textDecoration: "none" }}
             >
-              <Link
-                style={{ color: "grey", textDecoration: "none" }}
-                to="/login"
-              >
-                <i class="fas fa-sign-out-alt"></i>
-              </Link>
+              <i class="fas fa-sign-out-alt"></i>
             </button>
           </div>
         </>
@@ -438,13 +435,17 @@ class navbar extends Component {
                 >
                   No
                 </button>
-                <button
-                  type="button"
-                  class="btn btn-danger"
-                  onClick={this.logoutApp}
+                <Link
+                  to="/login"
                 >
-                  Yes
-                </button>
+                  <button
+                    type="button"
+                    class="btn btn-danger"
+                    onClick={this.logoutApp}
+                  >
+                    Yes
+                  </button>
+                </Link>
               </div>
             </div>
           </div>
@@ -462,6 +463,7 @@ const mapStateToProps = (state) => {
     level: state.auth.level,
     name: state.auth.name,
     email: state.auth.email,
+    img: state.auth.img,
   };
 };
 

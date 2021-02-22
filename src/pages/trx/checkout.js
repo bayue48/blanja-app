@@ -23,26 +23,36 @@ import mastercard from "../../assets/master.png";
 const API = process.env.REACT_APP_API;
 toast.configure();
 
-const Checkout = ({ location, cart, history }) => {
+const Checkout = ({ location, cart, history, props }) => {
   const [showChooseAddress, setShowChooseAddress] = useState(false);
   const [showAddAddress, setShowAddAddress] = useState(false);
   const [payment, setPayment] = useState("");
   // const [showPayment, setShowPayment] = useState(false);
   const [address, setAddress] = useState([]);
   // const [getFirstAddress, setGetFirstAddress] = useState([]);
-
+  // const item = useSelector((state) => state.cart);
   const ongkir = 15000;
 
   const dispatch = useDispatch();
   const { data } = location;
-  const id = useSelector((state) => state.auth.id);
+  const uid = useSelector((state) => state.auth.id);
   let token = useSelector((state) => state.auth.token);
 
+  // const {
+  //   id,
+  //   name,
+  //   address_name,
+  //   street,
+  //   city,
+  //   zip,
+  //   phone,
+  // } = props.location;
+  // console.log("toket", id);
   console.log("toket", token);
 
   const getAddressUser = async () => {
     await axios
-      .get(`${API}/address/${id}`, {
+      .get(`${API}/address/${uid}`, {
         headers: {
           "x-access-token": "Bearer " + token,
         },
@@ -77,10 +87,12 @@ const Checkout = ({ location, cart, history }) => {
 
   const postTransaction = () => {
     const info = {
-      user_id: id,
+      user_id: uid,
       qty: data !== undefined ? data[1] : null,
       price: data !== undefined ? data[0] : null,
       payment: payment,
+      // addreess_id: id,
+      o_status: 1,
     };
     axios
       .post(`${API}/history/`, info)
@@ -327,7 +339,7 @@ const Checkout = ({ location, cart, history }) => {
                     Order
                   </h4>
                   <h3 className="ml-auto text-price">
-                    Rp. {data !== undefined ? toPrice(data[0]+ ongkir) : null}
+                    Rp. {data !== undefined ? toPrice(data[0] + ongkir) : null}
                   </h3>
                 </div>
                 <div className="row align-items-center container-item-summary">
@@ -348,7 +360,8 @@ const Checkout = ({ location, cart, history }) => {
                       Shopping summary
                     </h4>
                     <h3 className={classname(colors.primaryText, "text-price")}>
-                      Rp. {data !== undefined ? toPrice(data[0]+ ongkir) : null}
+                      Rp.{" "}
+                      {data !== undefined ? toPrice(data[0] + ongkir) : null}
                     </h3>
                   </div>
                   <div className="col-5 align-self-center">
