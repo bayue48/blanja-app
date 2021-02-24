@@ -82,7 +82,7 @@ If you want to build, type `npm run build`.
 
 This is Blanja Web build version, let's try it.
 
-[http://](http://)
+[Blanja](http://34.205.17.154:3000/)
 
 ## Related Project
 
