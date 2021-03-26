@@ -57,10 +57,6 @@ const User = () => {
   const [addP, setAddP] = useState(false);
   const [errMsg, setErrMsg] = useState("");
 
-  console.log("ini users", users);
-  console.log("ini avatar", imagez);
-  console.log("ini nama", uname);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     const mailer = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-]/;
@@ -154,7 +150,6 @@ const User = () => {
         <hr></hr>
         {users &&
           users.map(({ id, name, store, email, store_desc, phone, img }) => {
-            console.log("id usersd", id);
             return (
               <>
                 {level === 1 ? (

@@ -18,9 +18,7 @@ const ChangePassword = () => {
   const [pass3, setPass3] = useState("");
   const [errMsg, setErrMsg] = useState("");
   const token = useSelector((state) => state.auth.token);
-  console.log("ini toket", token);
   const email = useSelector((state) => state.auth.email);
-  console.log("ini email", email);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

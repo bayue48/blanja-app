@@ -43,7 +43,7 @@ export default function Router() {
             <Route path="/forgot" component={Forgot} />
             <Route path="/validation" component={OneTimePass} />
             <PrivateRoute path="/cart" exact component={Cart} />
-            <PrivateRoute path="/checkout" exact component={Checkout} />
+            <ProtectedRoute path="/checkout" exact component={Checkout} />
             <ProtectedRoute path="/account" component={Profile} />
             <ProtectedRoute path="/product" exact component={List} />
             <ProtectedRoute path="/add" exact component={AddProduct} />

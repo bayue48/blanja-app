@@ -65,8 +65,8 @@ export default class New extends Component {
                               product_img.split(",")[0]
                             : blank
                         }
-                        className="card-img-top"
-                        style={{ maxHeight: "50%" }}
+                        className="img-fluid img-thumbnail"
+                        style={{ objectFit: "cover", maxHeight: "50%" }}
                         alt="..."
                       />
 

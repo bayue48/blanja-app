@@ -33,20 +33,6 @@ const AddProduct = () => {
   const [cnd, setCnd] = useState("");
   const [prodBrand, setProdBrand] = useState("");
 
-  console.log("size", size);
-  console.log("color", color);
-  console.log("image", filePath);
-  console.log("name", prodName);
-  console.log("price", prodPrice);
-  console.log("qty", prodQty);
-  console.log("desc", prodDesc);
-  console.log("uid", userId);
-  console.log("rate", rate);
-  console.log("category", ctg);
-  console.log("condition", cnd);
-  console.log("brand", prodBrand);
-  console.log("uid", userId);
-
   const token = useSelector((state) => state.auth.token);
 
   const inputRef = React.useRef();

@@ -7,7 +7,6 @@ import { blank } from "../assets";
 export default class product extends Component {
   constructor(props) {
     super(props);
-    console.log(this.props);
     this.state = {
       sizes: 0,
       quantity: 0,
@@ -35,8 +34,6 @@ export default class product extends Component {
   };
 
   render() {
-    // console.log(product)
-    // console.log(this.props)
     const {
       name,
       brand,
@@ -49,8 +46,6 @@ export default class product extends Component {
       category,
       size,
       color,
-      uid,
-      qtys,
       addToCart,
     } = this.props;
     return (

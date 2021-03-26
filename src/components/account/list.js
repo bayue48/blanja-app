@@ -30,7 +30,7 @@ const List = (props) => {
   };
 
   const handleDelete = (id) => {
-    // id.preventDefault();
+    console.log("datt", id);
     axios
       .delete(API + `/products/${id}`, {
         headers: {
@@ -62,7 +62,6 @@ const List = (props) => {
     return <Redirect to="/account" />;
   }
 
-  console.log("datda", dta);
   return (
     <div style={{ display: "flex" }}>
       <Sidebar />
@@ -156,6 +155,42 @@ const List = (props) => {
                               </button>
                             </td>
                           </tr>
+                          {/* delete */}
+                          <div
+                            class="modal fade modal-delete"
+                            tabindex="-1"
+                            role="dialog"
+                            aria-labelledby="mySmallModalLabel"
+                            aria-hidden="true"
+                          >
+                            <div class="modal-dialog modal-sm">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title">
+                                    Are you sure want to delete?
+                                  </h5>
+                                </div>
+                                <div class="modal-footer">
+                                  <button
+                                    type="button"
+                                    class="btn btn-secondary"
+                                    data-dismiss="modal"
+                                  >
+                                    No
+                                  </button>
+                                  <button
+                                    type="button"
+                                    class="btn btn-danger"
+                                    onClick={() => {
+                                      handleDelete(id);
+                                    }}
+                                  >
+                                    Yes
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
                         </>
                       );
                     }
@@ -163,39 +198,6 @@ const List = (props) => {
               </tbody>
             </table>
           )}
-        </div>
-      </div>
-
-      {/* delete */}
-      <div
-        class="modal fade modal-delete"
-        tabindex="-1"
-        role="dialog"
-        aria-labelledby="mySmallModalLabel"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog modal-sm">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Are you sure want to delete?</h5>
-            </div>
-            <div class="modal-footer">
-              <button
-                type="button"
-                class="btn btn-secondary"
-                data-dismiss="modal"
-              >
-                No
-              </button>
-              <button
-                type="button"
-                class="btn btn-danger"
-                onClick={handleDelete}
-              >
-                Yes
-              </button>
-            </div>
-          </div>
         </div>
       </div>
     </div>

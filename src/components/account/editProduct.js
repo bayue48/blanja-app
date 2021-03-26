@@ -28,17 +28,12 @@ const EditProduct = (props) => {
     product_price,
     product_qty,
     product_img,
-    category_name,
-    sizes_name,
-    color_name,
     product_condition,
     product_rating,
   } = props.location;
 
   const photo = product_img;
-  console.log("ini photo", photo);
   const [filePath, setFilePath] = useState([]);
-  console.log("FILEPATH", filePath);
   const [prodName, setProdName] = useState(product_name);
   const [size, setSize] = useState(1);
   const [color, setColor] = useState(1);
@@ -50,20 +45,6 @@ const EditProduct = (props) => {
   const [ctg, setCtg] = useState(1);
   const [cnd, setCnd] = useState(product_condition);
   const [prodBrand, setProdBrand] = useState(product_brand);
-
-  console.log("size", size);
-  console.log("color", color);
-  console.log("image", filePath);
-  console.log("name", prodName);
-  console.log("price", prodPrice);
-  console.log("qty", prodQty);
-  console.log("desc", prodDesc);
-  console.log("uid", userId);
-  console.log("rate", rate);
-  console.log("category", ctg);
-  console.log("condition", cnd);
-  console.log("brand", prodBrand);
-  console.log("uid", userId);
 
   const token = useSelector((state) => state.auth.token);
 

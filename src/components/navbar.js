@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { logo, filter, cart, mail, bell, avatar } from "../../src/assets";
-import { Link, withRouter, Redirect } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import axios from "axios";
 import { connect } from "react-redux";
 import { logout } from "../redux/actions/auth";
@@ -53,7 +53,6 @@ class navbar extends Component {
       },
     };
     const data = "";
-    console.log("token", this.props.token);
     axios
       .post(base_url + "/auth/logout", data, config)
       .then((res) => {
@@ -77,7 +76,7 @@ class navbar extends Component {
                 <img src={bell} alt="" />
               </button>
             </Link>
-            <Link to="/chat">
+            <Link to="/message">
               <button className="btn btn-default mr-2">
                 <img src={mail} alt="" />
               </button>
@@ -144,7 +143,12 @@ class navbar extends Component {
           className="sticky-top navbar-light bg-light shadow rounded p-3 mb-5"
         >
           <Container>
-            <Navbar.Brand href="/">
+            <Navbar.Brand
+              onClick={(e) => {
+                e.preventDefault();
+                this.props.history.push("/");
+              }}
+            >
               <Image src={logo} alt="Brand" />
             </Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -435,9 +439,7 @@ class navbar extends Component {
                 >
                   No
                 </button>
-                <Link
-                  to="/login"
-                >
+                <Link to="/login">
                   <button
                     type="button"
                     class="btn btn-danger"
